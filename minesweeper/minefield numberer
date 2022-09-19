@@ -1,0 +1,33 @@
+list = [[-1,0,0,0,0,0],
+        [0,0,-1,-1,0,0],
+        [0,0,-1,0,0,0],
+        [0,0,0,0,0,0]]
+#list of lists makes a sort of coordinate plane but it's half-backwards from what we're used to in math class
+#if you do print(list[1][3]), the [1] is the sublist and the [3] is the item in the sublist
+#changing the length of the rows or how many rows there are shouldn't break anything
+differences = [[0,-1],[0,1],[-1,0],[-1,-1],[-1,1],[1,0],[1,-1],[1,1]]
+for x in list:
+    for y in x:
+        if y == -1:
+    #finding the bomb
+            row = list.index(x)
+            spot = x.index(y)
+            #row is which sublist it's in, spot is which spot in the sublist
+            for z in differences:
+            #differences here is similar to differences in "fyuckeryh" but with two values instead of one
+            #the first value changes row, the second one changes spot to pick each spot that we need
+                if list[row+z[0]][spot+z[1]] != -1:
+                    if list[row+z[0]][spot+z[1]] != 9:
+                #checking if the chosen spots from differences are already bombs
+                        if (row+z[0]) >= 0:
+                            if (row+z[0]) <= len(list):
+                                if (spot+z[1]) >= 0:
+                                    if (spot+z[1]) <= len(x):
+                    #checking if the given spot is off the edge of the grid
+                    #this was the problem with "fyuckeryh", you couldn't properly check if it would roll over into the next row
+                                        list[row+z[0]][spot+z[1]] += 1
+            list[row][spot] = 9
+            #-1 gets changed into a 9 so the for loop doesn't do the same bomb again
+for x in list:
+    print(x)
+#prints off each row individually so it looks pretty

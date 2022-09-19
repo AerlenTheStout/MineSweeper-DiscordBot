@@ -1,0 +1,20 @@
+list = [0,0,0,0,0,0,
+        0,0,0,-1,0,0,
+        0,0,-1,0,0,0,
+        0,0,0,0,0,0]
+#-1 represents a mine here, it changes into a 9 later
+differences = [1,-1,5,6,7,-5,-6,-7]
+for x in list:
+    if x == -1:
+        for y in differences:
+            if list[list.index(x)+y] != -1:
+                if list[list.index(x)+y] != 9:
+                    if (list.index(x)+y) <= len(list):
+                        if (list.index(x)+y) >= 0:
+                            list[list.index(x)+y] += 1
+        list[list.index(x)]=9
+        
+rows = [list[x:x+6] for x in range(0, len(list), 6)]
+#change this     ^                     and this  ^ to match the length of the rows in the list
+for x in rows:
+    print(x)
