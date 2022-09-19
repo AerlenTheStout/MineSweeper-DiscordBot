@@ -81,6 +81,7 @@ for x in grid:
 for x in newgrid:
     print(x)
 #this prints the original grid
+print(" ")
 for x in grid:
     print(' '.join(x))
 #this prints the copy/paste without the square brackets and commas
