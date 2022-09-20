@@ -1,0 +1,40 @@
+from random import choice
+import copy
+difficulties = {
+    "Beginner" : [9,9,10],
+    "Intermediate" : [16,16,40],
+    "Expert" : [16,30,99]
+#[row length, number of rows, number of mines]
+}
+difficultychosen = False
+while difficultychosen == False:
+    difficulty = input("What difficulty level?")
+    for x in difficulties:
+        if difficulty == x:
+            rowlength = difficulties[x][0]
+            rowquantity = difficulties[x][1]
+            minequantity = difficulties[x][2]
+            difficultychosen = True
+    if difficultychosen == False:
+        print("Input invalid, please try again")
+            
+grid = list()
+for x in range(rowquantity):
+    grid.append(list())
+    for y in range(rowlength):
+        grid[-1].append(0)
+for x in grid:
+    print(x)
+coordx = int(input("Please select the x coordinate"))
+coordy = int(input("Please select the y coordinate"))
+coordx -= 1
+coordtable = {}
+for x in range(rowquantity):
+    coordtable[x] = list(reversed(range(1,(rowquantity+1))))[x]
+print(coordtable)
+for x in coordtable:
+    if coordtable[x] == coordy:
+        coordy = x
+grid[coordy][coordx] = 1
+for x in grid:
+    print(x)
