@@ -15,7 +15,7 @@ def initalization():
 #This makes and sets the grid variables acording to the difficulty
     difficultychosen = False
     while difficultychosen == False:
-        difficulty = input("What difficulty level?")
+        difficulty = input("What difficulty level? : ")
         for x in difficulties:
             if difficulty == x:
                 global rowlength
@@ -35,6 +35,8 @@ def CreateGrid():
         grid.append(list())
         for y in range(rowlength):
             grid[x].append(0)
+    placeMines()
+
 def placeMines():
 #This is the function that generates the mines
     minesplaced = 0
@@ -47,6 +49,7 @@ def placeMines():
 #prints the gird before the numbers around the mines are added
     for x in grid:
         print(x)
+    addNumbersAroundBombs()
 
 #This is the function that generates the numbers around the mines
 
@@ -80,29 +83,45 @@ def addNumbersAroundBombs():
                                         if grid[row+z[0]][spot+z[1]] != 9:
                                             grid[row+z[0]][spot+z[1]] += 1
                 grid[row][spot] = 9
-newgrid = copy.deepcopy(grid)
-zeropicked = False
-while zeropicked == False:
-    randomrow = choice(range(len(grid)))
-    randomspot = choice(range(len(grid[0])))
-    #i stole this from stackoverflow ^, it's so beautiful
-    if grid[randomrow][randomspot] == 0:
-        grid[randomrow][randomspot] = -2
-        zeropicked = True
-#this all just picks a random zero to be uncovered at the start ^
-for x in grid:
-    for y in x:
-        row = grid.index(x)
-        spot = x.index(y)
-        for z in discordspoilers:
-            if y == z:
-                grid[row][spot] = discordspoilers[z]
-#this takes the grid and swaps out each number for its corresponding string from discordspoilers
-for x in newgrid:
-    print(x)
+    #this creats a copy grid with the numbers around the mines
+    global newgrid
+    newgrid = copy.deepcopy(grid)
+    startingSpot()
+#create new grid to store the discord spoilers
+
+
+def startingSpot():
+#chose a random spot to be the first spot to be revealed
+    zeropicked = False
+    while zeropicked == False:
+        randomrow = choice(range(len(grid)))
+        randomspot = choice(range(len(grid[0])))
+        #i stole this from stackoverflow ^, it's so beautiful
+        if grid[randomrow][randomspot] == 0:
+            grid[randomrow][randomspot] = -2
+            zeropicked = True
+    printGridWithSpoilersAndEmojis()
+
+#this takes the grid and swaps out each number for its corresponding string from discordspoilers            
+def printGridWithSpoilersAndEmojis():
+    for x in grid:
+        for y in x:
+            row = grid.index(x)
+            spot = x.index(y)
+            for z in discordspoilers:
+                if y == z:
+                    grid[row][spot] = discordspoilers[z]
+    finalPrints()
+
+def finalPrints():
 #this prints the original grid
-print(" ")
-for x in grid:
-    print(' '.join(x))
-#this prints the copy/paste without the square brackets and commas
+    for x in newgrid:
+        print(x)
+
+    print("SEPERATOR")
+    #this prints the copy/paste without the square brackets and commas
+    for x in grid:
+        print(' '.join(x))
+
+
 #plase hepl

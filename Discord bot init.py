@@ -12,12 +12,15 @@ import GameMaster
 from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
+is_printing_grid = False
 
 #
 intents = discord.Intents.default()
 intents.message_content = True
 
 client = discord.Client(intents=intents)
+
+GameMaster.initalization()
 
 @client.event
 async def on_ready():
@@ -27,8 +30,21 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
+    global is_printing_grid
 
+# \$dig\s*([1-3]?[0-9]),([1-3]?[0-9])   
     if message.content.startswith('$hello'):
-        await message.channel.send(GameMaster.grid)
+        GameMaster.CreateGrid()
+        print("Is printing grid: " + str(is_printing_grid))
+        is_printing_grid = True
+        try:
+            for x in GameMaster.grid:
+                await message.channel.send(' '.join(x))
+        finally:
+            print("Is printing grid: " + str(is_printing_grid))
+            is_printing_grid = False
+    else :
+        if is_printing_grid and message.content != ('') :
+            await message.delete()
 
 client.run(TOKEN)
