@@ -1,5 +1,19 @@
-import discord
 
+#TODO: delete users msg after TBD seconds
+#TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
+
+#basic imports
+import discord
+import os
+#import mine and grid generation
+import GameMaster
+
+#dotenv to store discord token securly
+from dotenv import load_dotenv
+load_dotenv()
+TOKEN = os.getenv('TOKEN')
+
+#
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -15,6 +29,6 @@ async def on_message(message):
         return
 
     if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
+        await message.channel.send(GameMaster.grid)
 
-client.run('your token here')
+client.run(TOKEN)
