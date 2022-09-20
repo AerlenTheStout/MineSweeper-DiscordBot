@@ -14,19 +14,15 @@ difficulties = {
 }
 def initalization(difficulty):
 #This makes and sets the grid variables acording to the difficulty
-    difficultychosen = False
-    while difficultychosen == False:
-        for x in difficulties:
-            if difficulty == x:
-                global rowlength
-                global rowquantity
-                global minequantity
-                rowlength = difficulties[x][0]
-                rowquantity = difficulties[x][1]
-                minequantity = difficulties[x][2]
-                difficultychosen = True
-        if difficultychosen == False:
-            print("Input invalid, please try again")
+    for x in difficulties:
+        if difficulty == x:
+            global rowlength
+            global rowquantity
+            global minequantity
+            rowlength = difficulties[x][0]
+            rowquantity = difficulties[x][1]
+            minequantity = difficulties[x][2]
+            difficultychosen = True
     CreateGrid()
 def CreateGrid():
 #create the grid by putting a new list in the gird for each row and then apeending to each row to make collumns
