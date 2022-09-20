@@ -32,7 +32,7 @@ commands = {
 validinput = False
 while validinput == False:
     userinput = input("Please input the coordinates and command")
-    userinput = userinput.split(" ")
+    userinput = userinput.split(",")
     coordx = (int(userinput[0]))-1
     coordy = int(userinput[1])
     command = userinput[2]

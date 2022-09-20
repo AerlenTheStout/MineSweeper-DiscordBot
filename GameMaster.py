@@ -4,6 +4,7 @@
 
 from random import choice
 import copy
+from venv import create
 
 difficulties = {
     "Beginner" : [9,9,10],
@@ -11,11 +12,10 @@ difficulties = {
     "Expert" : [16,30,99]
 #[row length, number of rows, number of mines]
 }
-def initalization():
+def initalization(difficulty):
 #This makes and sets the grid variables acording to the difficulty
     difficultychosen = False
     while difficultychosen == False:
-        difficulty = input("What difficulty level? : ")
         for x in difficulties:
             if difficulty == x:
                 global rowlength
@@ -27,6 +27,7 @@ def initalization():
                 difficultychosen = True
         if difficultychosen == False:
             print("Input invalid, please try again")
+    CreateGrid()
 def CreateGrid():
 #create the grid by putting a new list in the gird for each row and then apeending to each row to make collumns
     global grid
