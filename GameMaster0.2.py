@@ -4,7 +4,6 @@
 
 from random import choice
 import copy
-from venv import create
 
 difficulties = {
     "Beginner" : [9,9,10],
@@ -52,18 +51,18 @@ def placeMines():
 
 differences = [[0,-1],[0,1],[-1,0],[-1,-1],[-1,1],[1,0],[1,-1],[1,1]]
 #TODO: remover the spoilers after generation testing is done
-discordspoilers = {
--2 : ":zero:",
-0 : "||:zero:||",
-1 : "||:one:||",
-2 : "||:two:||",
-3 : "||:three:||",
-4 : "||:four:||",
-5 : "||:five:||",
-6 : "||:six:||",
-7 : "||:seven:||",
-8 : "||:eight:||",
-9 : "||:bomb:||"
+Emojis = {
+-1 : ":blue_square:",
+0 : ":zero:",
+1 : ":one:",
+2 : ":two:",
+3 : ":three:",
+4 : ":four:",
+5 : ":five:",
+6 : ":six:",
+7 : ":seven:",
+8 : ":eight:",
+9 : ":bomb:"
 }
 def addNumbersAroundBombs():
     for x in grid:
@@ -81,10 +80,19 @@ def addNumbersAroundBombs():
                                             grid[row+z[0]][spot+z[1]] += 1
                 grid[row][spot] = 9
     #this creats a copy grid with the numbers around the mines
-    global newgrid
-    newgrid = copy.deepcopy(grid)
+    global userGrid
+    userGrid = copy.deepcopy(grid)
     startingSpot()
 #create new grid to store the discord spoilers
+
+
+
+def Reveal(row,spot):
+    #this is a function that takes in a x,y cordiate and returns the correct emoji
+    
+
+
+    return Emoji
 
 
 def startingSpot():
@@ -95,24 +103,24 @@ def startingSpot():
         randomspot = choice(range(len(grid[0])))
         #i stole this from stackoverflow ^, it's so beautiful
         if grid[randomrow][randomspot] == 0:
-            grid[randomrow][randomspot] = -2
+            grid[randomrow][randomspot] = Reveal(randomrow,randomspot)
             zeropicked = True
-    printGridWithSpoilersAndEmojis()
+    printGridWithEmojis()
 
 #this takes the grid and swaps out each number for its corresponding string from discordspoilers            
-def printGridWithSpoilersAndEmojis():
+def printGridWithEmojis():
     for x in grid:
         for y in x:
             row = grid.index(x)
             spot = x.index(y)
-            for z in discordspoilers:
+            for z in Emojis:
                 if y == z:
-                    grid[row][spot] = discordspoilers[z]
+                    grid[row][spot] = Emojis[z]
     finalPrints()
 
 def finalPrints():
 #this prints the original grid
-    for x in newgrid:
+    for x in userGrid:
         print(x)
 
     print("SEPERATOR")
