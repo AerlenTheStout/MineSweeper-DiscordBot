@@ -25,7 +25,7 @@ for x in range(rowquantity):
         grid[-1].append(0)
 for x in grid:
     print(x)
-    
+
 commands = {
         "dig" : 1,
         "flag" : 2
