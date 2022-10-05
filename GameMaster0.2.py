@@ -109,6 +109,15 @@ def Reveal(row,spot):
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
 
+
+#next
+#TODO: make it so that if you dig a zero it digs all the zeros around it
+#make it so when givem a cordiante it reveal() the number
+#print the grid with emojis
+
+
+
+
 def ToBeDetermined():
 
     validinput = False
