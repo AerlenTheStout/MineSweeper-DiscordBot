@@ -85,8 +85,16 @@ def addNumbersAroundBombs():
     startingSpot()
 #create new grid to store the discord spoilers
 
+def createUserGrid():
+    for x in range(rowquantity):
+        userGrid.append(list())
+        for y in range(rowlength):
+            userGrid[x].append(-1)
+
+    
 
 
+#TODO: change to dig and flag
 def Reveal(row,spot):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     

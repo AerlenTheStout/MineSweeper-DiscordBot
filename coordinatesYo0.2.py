@@ -18,31 +18,25 @@ while difficultychosen == False:
     if difficultychosen == False:
         print("Input invalid, please try again")
             
-grid = list()
-for x in range(rowquantity):
-    grid.append(list())
-    for y in range(rowlength):
-        grid[-1].append(0)
-for x in grid:
-    print(x)
-    
-commands = {
+
+Actions = {
         "dig" : 1,
         "flag" : 2
     }
+
 validinput = False
 while validinput == False:
-    userinput = input("Please input the coordinates and command")
+    userinput = input("Please input the coordinates and command : ")
     userinput = userinput.split(",")
     coordx = (int(userinput[0]))-1
     coordy = int(userinput[1])
     command = userinput[2]
-    for x in commands:
+    for x in Actions:
         if command == x:
-            modifier = commands[x]
+            modifier = Actions[x]
             validinput = True
     if validinput == False:
-        print("Input invalid, please try again")
+        print("Input invalid, please try again : ")
 
 coordTable = {}
 for x in range(rowquantity):
