@@ -4,6 +4,9 @@
 
 from random import choice
 import copy
+from sqlite3 import Row
+
+from DiscordBotInit import action
 
 difficulties = {
     #[row length, number of rows, number of mines]
@@ -104,16 +107,20 @@ def createUserGrid():
             userGrid[x].append(-1)
 
 #TODO: change to dig and flag
-def Reveal(row,spot):
+def Dig(row,spot):
+    #this is a function that takes in a x,y cordiate and returns the correct emoji
+    if userGrid[row][spot] == -1:
+        userGrid[row][spot] = originGrid[row][spot]
+    
+def Flag(row,spot):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
 
-
 #next
 #TODO: make it so that if you dig a zero it digs all the zeros around it
-#make it so when givem a cordiante it reveal() the number
-#print the grid with emojis
+# make it so when givem a cordiante it reveal() the number
+# print the grid with emojis
 
 
 
