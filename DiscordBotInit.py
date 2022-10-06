@@ -1,5 +1,6 @@
 from argparse import Action
 import re
+from GameMaster0.2 import Reveal
 #TODO: delete users msg after TBD seconds
 #TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
 #TODO: add help command with info on how to 
@@ -37,13 +38,19 @@ async def on_message(message):
 # \$dig\s*([1-3]?[0-9]),([1-3]?[0-9])   
     if message.content.startswith('$'):
         
-        if re.match('\\$dig\\s*([1-3]?[0-9]),([1-3]?[0-9])', message.content):
-            splitMsg = message.content.split(' ' and ',')
+        splitMsg = message.content.split(' ' and ',')
+
+        #see if msg matches with a command and if it does run the respective action
+        if re.match('\\$dig\\|\\$flag\\s*([1-3]?[0-9]),([1-3]?[0-9])', message.content):
+            
             action = splitMsg[0]
             row = int(splitMsg[1])
             spot = int(splitMsg[2])
+            if action == '$dig':
+                GameMaster.Dig(row,spot)
+            if action == '$flag':
+                GameMaster.Flag(row,spot)
 
-        splitMsg = message.content.split(' ')
         if splitMsg[0] == '$Play':
             await message.channel.send('Starting a new game')
             GameMaster.initalization(splitMsg[1])
