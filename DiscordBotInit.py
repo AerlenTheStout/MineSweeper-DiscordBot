@@ -41,7 +41,8 @@ async def on_message(message):
         splitMsg = message.content.split(' ' and ',')
 
         #see if msg matches with a command and if it does run the respective action
-        if re.match('\\$dig\\|\\$flag\\s*([1-3]?[0-9]),([1-3]?[0-9])', message.content):
+        #cureent regex... dosent work im going to sob
+        if re.match('([\$dig]|[\$flag]),([1-3]?[0-9]),([1-3]?[0-9])', message.content):
             
             action = splitMsg[0]
             row = int(splitMsg[1])
@@ -50,8 +51,10 @@ async def on_message(message):
                 GameMaster.Dig(row,spot)
             if action == '$flag':
                 GameMaster.Flag(row,spot)
+            
+            message = await message.channel.fetch_message(message.id)
 
-        if splitMsg[0] == '$Play':
+        if re.match('\\Q$\\E[[:alpha:]]*', splitMsg[0]):
             await message.channel.send('Starting a new game')
             GameMaster.initalization(splitMsg[1])
 
@@ -64,6 +67,7 @@ async def on_message(message):
         finally:
             print("Is printing grid: " + str(is_printing_grid))
             is_printing_grid = False
+            gridID = message.id
     else :
         if is_printing_grid and message.content != ('') :
             await message.delete()

@@ -4,6 +4,7 @@
 
 from random import choice
 import copy
+import discord
 
 difficulties = {
     #[row length, number of rows, number of mines]
@@ -108,6 +109,7 @@ def Dig(row,spot):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
+    
     
 def Flag(row,spot):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
