@@ -105,16 +105,20 @@ def createUserGrid():
             userGrid[x].append(-1)
 
 #TODO: change to dig and flag
-def Dig(row,spot):
+def Dig(row,spot,message):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
+    else :
+        message.channel.send("You have already dug this spot")
     
     
-def Flag(row,spot):
+def Flag(row,spot,message):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
+    else :
+        message.channel.send("You have already flaged this spot")
     
 
 #next

@@ -1,8 +1,7 @@
-from argparse import Action
-from ast import IsNot
-from importlib.resources import contents
+
+
 import re
-from GameMaster0.2 import Reveal
+
 #TODO: delete users msg after TBD seconds
 #TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
 #TODO: add help command with info on how to 
@@ -43,7 +42,7 @@ async def on_message(message):
         splitMsg = message.content.split(' ' and ',')
 
         #see if msg matches with a command and if it does run the respective action
-        #cureent regex... it can fiund $dig or $flag... but after that cant find the numbers... im going to sob
+        #IT WORKS HAZZZA 
         matchResults = re.match('(\\$dig|\\$flag)\\s*([1-9]?[0-9]),([1-3]?[0-9]', message.content)
         if matchResults is not None:
             
@@ -51,9 +50,9 @@ async def on_message(message):
             row = int(matchResults.group(2))
             spot = int(matchResults.group(3))
             if action == '$dig':
-                GameMaster.Dig(row,spot)
+                GameMaster.Dig(row,spot,message)
             if action == '$flag':
-                GameMaster.Flag(row,spot)
+                GameMaster.Flag(row,spot,message)
             
             message = await message.channel.fetch_message(message.id)
 
