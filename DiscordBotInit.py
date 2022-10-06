@@ -1,4 +1,6 @@
 from argparse import Action
+from ast import IsNot
+from importlib.resources import contents
 import re
 from GameMaster0.2 import Reveal
 #TODO: delete users msg after TBD seconds
@@ -42,11 +44,12 @@ async def on_message(message):
 
         #see if msg matches with a command and if it does run the respective action
         #cureent regex... it can fiund $dig or $flag... but after that cant find the numbers... im going to sob
-        if re.match('(\\$dig)|(\\$flag)\s*,([1-9]?[0-9]),([1-3]?[0-9])', message.content):
+        matchResults = re.match('(\\$dig|\\$flag)\\s*([1-9]?[0-9]),([1-3]?[0-9]', message.content)
+        if matchResults is not None:
             
-            action = splitMsg[0]
-            row = int(splitMsg[1])
-            spot = int(splitMsg[2])
+            action = matchResults.group(1)
+            row = int(matchResults.group(2))
+            spot = int(matchResults.group(3))
             if action == '$dig':
                 GameMaster.Dig(row,spot)
             if action == '$flag':
