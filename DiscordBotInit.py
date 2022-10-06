@@ -1,4 +1,5 @@
-
+from argparse import Action
+import re
 #TODO: delete users msg after TBD seconds
 #TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
 #TODO: add help command with info on how to 
@@ -35,6 +36,13 @@ async def on_message(message):
 
 # \$dig\s*([1-3]?[0-9]),([1-3]?[0-9])   
     if message.content.startswith('$'):
+        
+        if re.match('\\$dig\\s*([1-3]?[0-9]),([1-3]?[0-9])', message.content):
+            splitMsg = message.content.split(' ' and ',')
+            action = splitMsg[0]
+            row = int(splitMsg[1])
+            spot = int(splitMsg[2])
+
         splitMsg = message.content.split(' ')
         if splitMsg[0] == '$Play':
             await message.channel.send('Starting a new game')
