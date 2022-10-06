@@ -161,9 +161,9 @@ def ToBeDetermined():
         coordTable[x] = list(reversed(range(1,(rowquantity+1))))[x]
     print(coordTable)
     for x in coordTable:
-        if coordTable[x] == coordy:
+        if coordTable[x] == coordy: # type: ignore
             coordy = x
-    originGrid[coordy][coordx] = modifier
+    originGrid[coordy][coordx] = modifier # type: ignore
     for x in originGrid:
         print(x)
 
@@ -175,20 +175,12 @@ def startingSpot():
         randomspot = choice(range(len(originGrid[0])))
         #i stole this from stackoverflow ^, it's so beautiful
         if originGrid[randomrow][randomspot] == 0:
-            originGrid[randomrow][randomspot] = Reveal(randomrow,randomspot)
+            userGrid[randomrow][randomspot] = originGrid[randomrow][randomspot]
             zeropicked = True
-    printGridWithEmojis()
+    finalPrints()
 
 #this takes the grid and swaps out each number for its corresponding string from discordspoilers            
-def printGridWithEmojis():
-    for x in originGrid:
-        for y in x:
-            row = originGrid.index(x)
-            spot = x.index(y)
-            for z in Emojis:
-                if y == z:
-                    originGrid[row][spot] = Emojis[z]
-    finalPrints()
+
 
 def finalPrints():
 #this prints the original grid
@@ -196,6 +188,16 @@ def finalPrints():
         print(x)
 
     print("SEPERATOR")
+
+    #this prints the grid with emojis
+    for x in originGrid:
+        for y in x:
+            row = originGrid.index(x)
+            spot = x.index(y)
+            for z in Emojis:
+                if y == z:
+                    originGrid[row][spot] = Emojis[z]
+
     #this prints the copy/paste without the square brackets and commas
     for x in originGrid:
         print(' '.join(x))

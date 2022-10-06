@@ -10,7 +10,7 @@ import re
 import discord
 import os
 #import mine and grid generation
-import GameMaster
+import GameMaster # type: ignore
 
 #dotenv to store discord token securly
 from dotenv import load_dotenv
