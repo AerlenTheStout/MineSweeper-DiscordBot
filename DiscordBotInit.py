@@ -41,8 +41,8 @@ async def on_message(message):
         splitMsg = message.content.split(' ' and ',')
 
         #see if msg matches with a command and if it does run the respective action
-        #cureent regex... dosent work im going to sob
-        if re.match('([\$dig]|[\$flag]),([1-3]?[0-9]),([1-3]?[0-9])', message.content):
+        #cureent regex... it can fiund $dig or $flag... but after that cant find the numbers... im going to sob
+        if re.match('(\\$dig)|(\\$flag)\s*,([1-9]?[0-9]),([1-3]?[0-9])', message.content):
             
             action = splitMsg[0]
             row = int(splitMsg[1])
