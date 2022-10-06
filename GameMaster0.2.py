@@ -110,6 +110,9 @@ def Dig(row,spot,message):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
+        editSentGrid()
+        message.reply("You have dug this spot")
+        message.delete()
     else :
         reply = message.reply("You have already dug this spot")
         sleep(4)
@@ -120,6 +123,9 @@ def Flag(row,spot,message):
     #this is a function that takes in a x,y cordiate and sets that cordinate to a flag(-2)
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
+        editSentGrid()
+        message.reply("You have flagged this spot")
+        message.delete()
     else :
         reply = message.reply("You have already flagged this spot")
         sleep(4)
