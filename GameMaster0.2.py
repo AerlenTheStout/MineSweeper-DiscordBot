@@ -4,7 +4,7 @@
 
 from random import choice
 import copy
-import discord
+from time import sleep
 
 difficulties = {
     #[row length, number of rows, number of mines]
@@ -15,6 +15,7 @@ difficulties = {
 }
 
 Emojis = {
+-2 : ":trianglular_flag_on_post:",
 -1 : ":blue_square:",
 0 : ":zero:",
 1 : ":one:",
@@ -110,15 +111,19 @@ def Dig(row,spot,message):
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
     else :
-        message.channel.send("You have already dug this spot")
+        reply = message.reply("You have already dug this spot")
+        sleep(4)
+        reply.delete()
     
     
 def Flag(row,spot,message):
-    #this is a function that takes in a x,y cordiate and returns the correct emoji
+    #this is a function that takes in a x,y cordiate and sets that cordinate to a flag(-2)
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
     else :
-        message.channel.send("You have already flaged this spot")
+        reply = message.reply("You have already flagged this spot")
+        sleep(4)
+        reply.delete()
     
 
 #next
