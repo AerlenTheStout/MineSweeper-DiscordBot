@@ -125,7 +125,6 @@ def Dig(X,Y,message,client):
 
         editSentGrid()
 
-
         client.loop.create_task(message.reply("You have dug this X", delete_after=4))
         sleep(10)
         message.delete
@@ -161,7 +160,6 @@ def aroundZero(X,Y):
 #TODO: make it so that if you dig a zero it digs all the zeros around it
 # make it so when givem a cordiante it reveal() the number
 # print the grid with emojis
-
 def rowCoordinates(Y):  
     Y = int(Y)
     coordTable = {}
