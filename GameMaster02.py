@@ -70,8 +70,9 @@ def placeMines():
             originGrid[randomrow][randomspot] = -1
             minesplaced += 1
 #prints the gird before the numbers around the mines are added
+    global plotGrid
     for x in originGrid:
-        print(x)
+        plotGrid = copy.deepcopy(originGrid)
     addNumbersAroundBombs()
 
 #This is the function that generates the numbers around the mines
@@ -197,23 +198,26 @@ def startingSpot():
 
 def finalPrints():
 #this prints the original grid
-    for x in userGrid:
+
+    for x in plotGrid:
         print(x)
 
     print("SEPERATOR")
 
-    #this prints the grid with emojis
-    for x in originGrid:
-        for y in x:
-            row = originGrid.index(x)
-            spot = x.index(y)
-            for z in Emojis:
-                if y == z:
-                    originGrid[row][spot] = Emojis[z]
+    for x in userGrid:
+        print(x)
 
-    #this prints the copy/paste without the square brackets and commas
+    print("SEPERATOR")
+    
     for x in originGrid:
         print(' '.join(x))
+    
+
+    #this prints the grid with emojis
+    
+
+    #this prints the copy/paste without the square brackets and commas
+    
 
 
 #plase hepl
