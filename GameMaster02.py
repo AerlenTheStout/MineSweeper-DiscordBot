@@ -120,8 +120,13 @@ def Dig(X,Y,message,client):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if userGrid[Y][X] == -1:
         userGrid[Y][X] = originGrid[Y][X]
+        if originGrid[Y][X] == 0:
+            for z in differences:
+                    try:
+                        userGrid[Y+z[0]][X+z[1]] = originGrid[Y][X]
+                    finally:
+                        return
         editSentGrid()
-
 
         client.loop.create_task(message.reply("You have dug this X", delete_after=4))
         sleep(10)
@@ -150,7 +155,6 @@ def Flag(X,Y,message,client):
 #TODO: make it so that if you dig a zero it digs all the zeros around it
 # make it so when givem a cordiante it reveal() the number
 # print the grid with emojis
-
 def rowCoordinates(Y):  
     Y = int(Y)
     coordTable = {}
