@@ -65,7 +65,7 @@ async def on_message(message):
         playAndDiffcultyMatchResults = re.match('(\\S{5})\\s*(\\S+)', message.content)
         if playAndDiffcultyMatchResults is not None:
             await message.channel.send('Starting a new game')
-            GameMaster02.initalization(playAndDiffcultyMatchResults.group(2))
+            GameMaster02.initalization(playAndDiffcultyMatchResults.group(2),client,message)
 
         
         

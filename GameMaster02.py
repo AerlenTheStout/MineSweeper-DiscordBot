@@ -37,7 +37,7 @@ COMMANDS = {
     "flag" : -2
 }
                   #beginner
-def initalization(requestedDifficulty):
+def initalization(requestedDifficulty,client,message):
 #This makes and sets the grid variables acording to the difficulty
     global rowlength
     global rowquantity
@@ -49,6 +49,9 @@ def initalization(requestedDifficulty):
             rowlength = DIFFICULTIES[difficulty][0]
             rowquantity = DIFFICULTIES[difficulty][1]
             minequantity = DIFFICULTIES[difficulty][2]
+
+        else :
+            client.loop.create_task(message.channel.send("You have dug this X"))
     CreateGrid()
 
 def CreateGrid():
@@ -205,7 +208,7 @@ def finalPrints():
 
 
 
-initalization("beginner")
+#initalization("beginner")
 
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
