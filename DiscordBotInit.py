@@ -46,8 +46,8 @@ async def on_message(message):
         if digOrFlagMatchResults is not None:
             
             action = digOrFlagMatchResults.group(1)
-            row = int(digOrFlagMatchResults.group(2))
-            spot = int(digOrFlagMatchResults.group(3))
+            spot = int(digOrFlagMatchResults.group(2))
+            row = int(digOrFlagMatchResults.group(3))
 
             if action == '$dig':
                 flipedCoordinates = GameMaster02.spotCoordinates(row,spot)
