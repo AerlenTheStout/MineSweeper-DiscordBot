@@ -209,8 +209,3 @@ initalization("beginner")
 
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
-
-#def emojify(EMOJIS):
-#    for i in userGrid:
-#        for n in i:
-
