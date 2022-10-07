@@ -106,6 +106,7 @@ def createUserGrid():
     for x in range(rowquantity):
         for y in range(rowlength):
             userGrid[x][y] = -1
+    startingSpot()
 
 def editSentGrid():
     #get row from cordinates, edit corosponding row from msg[x]
@@ -115,6 +116,8 @@ def editSentGrid():
 
 #TODO: change to dig and flag
 def Dig(row,spot,message,client):
+
+    spotCoordinates(row,spot)
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
@@ -187,7 +190,7 @@ def finalPrints():
     print("SEPERATOR")
 # prints the copy/paste without the square brackets and commas
     for x in originGrid:
-        print(' '.join(x))
+        print(' '.join(str(x)))
 
     print("SEPERATOR")
 #prints the user grid
@@ -196,7 +199,7 @@ def finalPrints():
 
 
 
-#initalization("beginner")
+initalization("beginner")
 
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen

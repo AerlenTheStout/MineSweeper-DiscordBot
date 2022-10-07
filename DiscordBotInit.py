@@ -9,8 +9,8 @@ import GameMaster02
 
 #TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
 #TODO: add help command with info on how to 
-
-#TODO: store each msg id based on the row
+#TODO: make end condition either win or loss
+#TODO: block startying new game untill other one is over
 
 
 #dotenv to store discord token securly
@@ -48,12 +48,15 @@ async def on_message(message):
             action = digOrFlagMatchResults.group(1)
             row = int(digOrFlagMatchResults.group(2))
             spot = int(digOrFlagMatchResults.group(3))
+
             if action == '$dig':
+                
                 GameMaster02.Dig(row,spot,message,client)
             if action == '$flag':
                 GameMaster02.Flag(row,spot,message,client)
             
             message = await message.channel.fetch_message(message.id)
+
         #$play msg with diffuculty
         playAndDiffcultyMatchResults = re.match('(\\S{5})\\s*(\\S+)', message.content)
         if playAndDiffcultyMatchResults is not None:
