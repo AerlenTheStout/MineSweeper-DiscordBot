@@ -33,8 +33,8 @@ Emojis = {
 }
 
 commands = {
-    "dig" : 1,
-    "flag" : 2
+    "dig" : -1,
+    "flag" : -2
 }
                   #beginner
 def initalization(difficulty):
@@ -144,38 +144,24 @@ def Flag(row,spot,message,client):
         sleep(10)
         message.delete
 
-    
-
 #next
 #TODO: make it so that if you dig a zero it digs all the zeros around it
 # make it so when givem a cordiante it reveal() the number
 # print the grid with emojis
 
-
-
-
-def ToBeDetermined(action,row,spot):
+def spotCoordinates(spot,row):
     validinput = False
     while validinput == False:
-        coordx = (int(spot))-1
-        coordy = int(row)
-        for x in commands:
-            if action == x:
-                modifier = commands[x]
-                validinput = True
-        if validinput == False:
-            print("Input invalid, please try again")
-
+        spot = (int(spot))-1
+        row = int(row)
     coordTable = {}
     for x in range(rowquantity):
         coordTable[x] = list(reversed(range(1,(rowquantity+1))))[x]
     print(coordTable)
     for x in coordTable:
-        if coordTable[x] == coordy: # type: ignore
-            coordy = x
-    originGrid[coordy][coordx] = modifier # type: ignore
-    for x in originGrid:
-        print(x)
+        if coordTable[x] == row: # type: ignore
+            row = x
+            return(row,spot)
 
 def startingSpot():
 #chose a random spot to be the first spot to be revealed
