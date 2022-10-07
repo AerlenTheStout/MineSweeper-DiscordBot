@@ -1,5 +1,6 @@
 
 #basic imports
+from time import sleep
 import discord
 import os
 import re
@@ -60,14 +61,16 @@ async def on_message(message):
             GameMaster02.initalization(playAndDiffcultyMatchResults.group(2))
 
         
-        print("Is printing grid: " + str(is_printing_grid))
+        
         is_printing_grid = True
+        print("Is printing grid: " + str(is_printing_grid))
         try:
             msg = []
             for x in GameMaster02.userGrid:
 
                 tempMsg = await message.channel.send(' '.join(str(x)))
                 msg.append(tempMsg.id)
+                sleep(0.2)
 
 
         finally:

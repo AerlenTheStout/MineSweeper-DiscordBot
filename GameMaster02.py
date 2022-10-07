@@ -124,12 +124,12 @@ def Dig(row,spot,message,client):
 
 
         client.loop.create_task(message.reply("You have dug this spot", delete_after=4))
-        sleep(4)
+        sleep(10)
         message.delete
         
     else :
-        asyncio.run(message.reply("You have already dug this spot", delete_after=4))
-        sleep(4)
+        client.loop.create_task(message.reply("You have already dug this spot", delete_after=4))
+        sleep(10)
         message.delete
     
 def Flag(row,spot,message,client):
@@ -137,13 +137,13 @@ def Flag(row,spot,message,client):
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
         editSentGrid()
-        asyncio.run(message.reply("You have flagged this spot", delete_after=4))
-        sleep(4)
+        client.loop.create_task(message.reply("You have flagged this spot", delete_after=4))
+        sleep(10)
         message.delete
         
     else :
-        asyncio.run(message.reply("You have already flagged this spot", delete_after=4))
-        sleep(4)
+        client.loop.create_task(message.reply("You have already flagged this spot", delete_after=4))
+        sleep(10)
         message.delete
 
     
