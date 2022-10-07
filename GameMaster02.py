@@ -135,7 +135,7 @@ def Dig(row,spot,message,client):
 def Flag(row,spot,message,client):
     #this is a function that takes in a x,y cordiate and sets that cordinate to a flag(-2)
     if userGrid[row][spot] == -1:
-        userGrid[row][spot] = originGrid[row][spot]
+        userGrid[row][spot] = -2
         editSentGrid()
         client.loop.create_task(message.reply("You have flagged this spot", delete_after=4))
         sleep(10)
@@ -156,17 +156,13 @@ def Flag(row,spot,message,client):
 
 
 
-def ToBeDetermined():
-
+def ToBeDetermined(action,row,spot):
     validinput = False
     while validinput == False:
-        userinput = input("Please input the coordinates and command")
-        userinput = userinput.split(",")
-        coordx = (int(userinput[0]))-1
-        coordy = int(userinput[1])
-        command = userinput[2]
+        coordx = (int(spot))-1
+        coordy = int(row)
         for x in commands:
-            if command == x:
+            if action == x:
                 modifier = commands[x]
                 validinput = True
         if validinput == False:
