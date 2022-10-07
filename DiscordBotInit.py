@@ -46,18 +46,19 @@ async def on_message(message):
         if digOrFlagMatchResults is not None:
             
             action = digOrFlagMatchResults.group(1)
-            spot = int(digOrFlagMatchResults.group(2))
-            row = int(digOrFlagMatchResults.group(3))
+            X = int(digOrFlagMatchResults.group(2))-1
+            Y = int(digOrFlagMatchResults.group(3))
 
-            row = next(GameMaster02.spotCoordinates(row,spot))
-            spot = next(GameMaster02.spotCoordinates(row,spot))
-            
+            Y = GameMaster02.rowCoordinates(Y)
+
+            print(action,X,Y)
+
             if action == '$dig':
-                GameMaster02.Dig(row,spot,message,client)
+                GameMaster02.Dig(X,Y,message,client)
             if action == '$flag':
-                GameMaster02.Flag(row,spot,message,client)
+                GameMaster02.Flag(X,Y,message,client)
             
-            message = await message.channel.fetch_message(message.id)
+        message = await message.channel.fetch_message(message.id)
 
         #$play msg with diffuculty
         playAndDiffcultyMatchResults = re.match('(\\S{5})\\s*(\\S+)', message.content)
@@ -71,11 +72,11 @@ async def on_message(message):
         print("Is printing grid: " + str(is_printing_grid))
         try:
             msg = []
-            for x in GameMaster02.userGrid:
+            for i in GameMaster02.userGrid:
 
-                tempMsg = await message.channel.send(' '.join(str(x)))
+                tempMsg = await message.channel.send(' '.join(str(i)))
                 msg.append(tempMsg.id)
-                sleep(0.2)
+                sleep(0.5)
 
 
         finally:
