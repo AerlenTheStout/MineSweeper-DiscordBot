@@ -49,12 +49,12 @@ async def on_message(message):
             spot = int(digOrFlagMatchResults.group(2))
             row = int(digOrFlagMatchResults.group(3))
 
+            row = next(GameMaster02.spotCoordinates(row,spot))
+            spot = next(GameMaster02.spotCoordinates(row,spot))
+            
             if action == '$dig':
-                GameMaster02.spotCoordinates(row,spot)
-
-                GameMaster02.Dig(GameMaster02.spotCoordinates(row,spot)[0],spot,message,client)
+                GameMaster02.Dig(row,spot,message,client)
             if action == '$flag':
-                GameMaster02.spotCoordinates(row,spot)
                 GameMaster02.Flag(row,spot,message,client)
             
             message = await message.channel.fetch_message(message.id)

@@ -159,8 +159,9 @@ def spotCoordinates(spot,row):
     for x in coordTable:
         if coordTable[x] == row: # type: ignore
             row = x
-            coordinates = [row,spot]
-            return coordinates
+            yield row
+            yield spot
+            
 
 def startingSpot():
 #chose a random spot to be the first spot to be revealed
