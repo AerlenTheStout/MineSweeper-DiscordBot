@@ -198,26 +198,23 @@ def startingSpot():
 
 def finalPrints():
 #this prints the original grid
-
+#prints the grid with only bombs
     for x in plotGrid:
         print(x)
 
     print("SEPERATOR")
+# prints the copy/paste without the square brackets and commas
+    for x in originGrid:
+        print(' '.join(x))
 
+    print("SEPERATOR")
+#prints the user grid
     for x in userGrid:
         print(x)
 
-    print("SEPERATOR")
-    
-    for x in originGrid:
-        print(' '.join(x))
-    
-
-    #this prints the grid with emojis
-    
-
-    #this prints the copy/paste without the square brackets and commas
-    
 
 
-#plase hepl
+#initalization("beginner")
+
+#plase hepl ~ BbrDbr
+#save my soul ~ Aerlen
