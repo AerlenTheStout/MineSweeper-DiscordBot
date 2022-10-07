@@ -150,9 +150,9 @@ def Flag(X,Y,message,client):
 
 
 def aroundZero(X,Y):
-    for i in differences:
+    for z in differences:
         try:
-            userGrid[Y][X] = originGrid[Y][X]      
+            userGrid[Y+z[0]][X+z[1]] += originGrid[Y][X]    
         finally:
             pass
 
@@ -210,4 +210,7 @@ initalization("beginner")
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
 
+#def emojify(EMOJIS):
+#    for i in userGrid:
+#        for n in i:
 
