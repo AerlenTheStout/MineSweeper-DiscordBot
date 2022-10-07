@@ -116,8 +116,6 @@ def editSentGrid():
 
 #TODO: change to dig and flag
 def Dig(row,spot,message,client):
-
-    spotCoordinates(row,spot)
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
@@ -152,19 +150,16 @@ def Flag(row,spot,message,client):
 # make it so when givem a cordiante it reveal() the number
 # print the grid with emojis
 
-def spotCoordinates(spot,row):
-    validinput = False
-    while validinput == False:
-        spot = (int(spot))-1
-        row = int(row)
+def spotCoordinates(spot,row):  
+    spot = (int(spot))-1
+    row = int(row)
     coordTable = {}
     for x in range(rowquantity):
         coordTable[x] = list(reversed(range(1,(rowquantity+1))))[x]
-    print(coordTable)
     for x in coordTable:
         if coordTable[x] == row: # type: ignore
             row = x
-            return(row,spot)
+            return[row,spot]
 
 def startingSpot():
 #chose a random spot to be the first spot to be revealed

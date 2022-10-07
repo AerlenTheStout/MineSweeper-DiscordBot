@@ -50,9 +50,11 @@ async def on_message(message):
             spot = int(digOrFlagMatchResults.group(3))
 
             if action == '$dig':
-                
+                flipedCoordinates = GameMaster02.spotCoordinates(row,spot)
+
                 GameMaster02.Dig(row,spot,message,client)
             if action == '$flag':
+                GameMaster02.spotCoordinates(row,spot)
                 GameMaster02.Flag(row,spot,message,client)
             
             message = await message.channel.fetch_message(message.id)
