@@ -42,7 +42,8 @@ async def on_message(message):
 
         #see if msg matches with a command and if it does run the respective action
         #IT WORKS HAZZZA 
-        digOrFlagMatchResults = re.match('(\\$dig|\\$flag)\\s*([1-9]?[0-9]),([1-3]?[0-9])', message.content)
+        digOrFlagMatchResults = re.match('(\\$dig|\\$flag)\\s*([1-9]?[0-9]),([1-9]?[0-9])', message.content)
+
         if digOrFlagMatchResults is not None:
             
             action = digOrFlagMatchResults.group(1)
