@@ -2,15 +2,12 @@
 #TODO: allows fuctionaly to either dig or flag a square
 #TODO: at the start everything show us as a :blue_box: 
 #TODO: make diffuculties use regex
-import imp
 
-
-import asyncio
 from random import choice
 import copy
 from time import sleep
 import re
-import discord
+
 
 difficulties = {
     #[row length, number of rows, number of mines]
@@ -73,8 +70,9 @@ def placeMines():
             originGrid[randomrow][randomspot] = -1
             minesplaced += 1
 #prints the gird before the numbers around the mines are added
+    global plotGrid
     for x in originGrid:
-        print(x)
+        plotGrid = copy.deepcopy(originGrid)
     addNumbersAroundBombs()
 
 #This is the function that generates the numbers around the mines
@@ -196,23 +194,23 @@ def startingSpot():
 
 def finalPrints():
 #this prints the original grid
-    for x in userGrid:
+#prints the grid with only bombs
+    for x in plotGrid:
         print(x)
 
     print("SEPERATOR")
-
-    #this prints the grid with emojis
-    for x in originGrid:
-        for y in x:
-            row = originGrid.index(x)
-            spot = x.index(y)
-            for z in Emojis:
-                if y == z:
-                    originGrid[row][spot] = Emojis[z]
-
-    #this prints the copy/paste without the square brackets and commas
+# prints the copy/paste without the square brackets and commas
     for x in originGrid:
         print(' '.join(x))
 
+    print("SEPERATOR")
+#prints the user grid
+    for x in userGrid:
+        print(x)
 
-#plase hepl
+
+
+#initalization("beginner")
+
+#plase hepl ~ BbrDbr
+#save my soul ~ Aerlen
