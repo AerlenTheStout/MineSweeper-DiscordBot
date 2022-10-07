@@ -2,15 +2,12 @@
 #TODO: allows fuctionaly to either dig or flag a square
 #TODO: at the start everything show us as a :blue_box: 
 #TODO: make diffuculties use regex
-import imp
 
-
-import asyncio
 from random import choice
 import copy
 from time import sleep
 import re
-import discord
+
 
 difficulties = {
     #[row length, number of rows, number of mines]
