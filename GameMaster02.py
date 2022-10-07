@@ -120,6 +120,9 @@ def Dig(X,Y,message,client):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if userGrid[Y][X] == -1:
         userGrid[Y][X] = originGrid[Y][X]
+        if originGrid[Y][X] == 0:
+            aroundZero(X,Y)
+
         editSentGrid()
 
 
@@ -145,6 +148,14 @@ def Flag(X,Y,message,client):
         client.loop.create_task(message.reply("You have already flagged this X", delete_after=4))
         sleep(10)
         message.delete
+
+
+def aroundZero(X,Y):
+    for i in differences:
+        try:
+            userGrid[Y][X] = originGrid[Y][X]      
+        finally:
+            pass
 
 #next
 #TODO: make it so that if you dig a zero it digs all the zeros around it
@@ -200,3 +211,5 @@ initalization("beginner")
 
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
+
+
