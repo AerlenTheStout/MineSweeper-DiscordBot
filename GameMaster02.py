@@ -1,16 +1,22 @@
 
 #TODO: allows fuctionaly to either dig or flag a square
 #TODO: at the start everything show us as a :blue_box: 
+#TODO: make diffuculties use regex
+import imp
 
+
+import asyncio
 from random import choice
 import copy
 from time import sleep
+import re
+import discord
 
 difficulties = {
     #[row length, number of rows, number of mines]
-    "Beginner" : [9,9,10],
-    "Intermediate" : [16,16,40],
-    "Expert" : [16,30,99]
+    "beginner" : [9,9,10],
+    "intermediate" : [16,16,40],
+    "expert" : [16,30,99]
 
 }
 
@@ -33,20 +39,19 @@ commands = {
     "dig" : 1,
     "flag" : 2
 }
-
+                  #beginner
 def initalization(difficulty):
 #This makes and sets the grid variables acording to the difficulty
     global rowlength
     global rowquantity
     global minequantity
     for x in difficulties:
-        if difficulty == x:
+        difficulty = difficulty.lower()
+        if re.match(x,difficulty):
             rowlength = difficulties[x][0]
             rowquantity = difficulties[x][1]
             minequantity = difficulties[x][2]
     CreateGrid()
-
-
 
 def CreateGrid():
 #create the grid by putting a new list in the gird for each row and then apeending to each row to make collumns
@@ -101,35 +106,46 @@ def addNumbersAroundBombs():
 
 def createUserGrid():
     for x in range(rowquantity):
-        userGrid.append(list())
         for y in range(rowlength):
-            userGrid[x].append(-1)
+            userGrid[x][y] = -1
+
+def editSentGrid():
+    #get row from cordinates, edit corosponding row from msg[x]
+    #edit with corosponding row from userGrid[x]
+
+    return
 
 #TODO: change to dig and flag
-def Dig(row,spot,message):
+def Dig(row,spot,message,client):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
         editSentGrid()
-        message.reply("You have dug this spot")
-        message.delete()
-    else :
-        reply = message.reply("You have already dug this spot")
+
+
+        client.loop.create_task(message.reply("You have dug this spot", delete_after=4))
         sleep(4)
-        reply.delete()
+        message.delete
+        
+    else :
+        asyncio.run(message.reply("You have already dug this spot", delete_after=4))
+        sleep(4)
+        message.delete
     
-    
-def Flag(row,spot,message):
+def Flag(row,spot,message,client):
     #this is a function that takes in a x,y cordiate and sets that cordinate to a flag(-2)
     if userGrid[row][spot] == -1:
         userGrid[row][spot] = originGrid[row][spot]
         editSentGrid()
-        message.reply("You have flagged this spot")
-        message.delete()
-    else :
-        reply = message.reply("You have already flagged this spot")
+        asyncio.run(message.reply("You have flagged this spot", delete_after=4))
         sleep(4)
-        reply.delete()
+        message.delete
+        
+    else :
+        asyncio.run(message.reply("You have already flagged this spot", delete_after=4))
+        sleep(4)
+        message.delete
+
     
 
 #next

@@ -1,16 +1,16 @@
 
-
-import re
-
-#TODO: delete users msg after TBD seconds
-#TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
-#TODO: add help command with info on how to 
-
 #basic imports
 import discord
 import os
+import re
 #import mine and grid generation
-import GameMaster # type: ignore
+import GameMaster02
+
+#TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
+#TODO: add help command with info on how to 
+
+#TODO: store each msg id based on the row
+
 
 #dotenv to store discord token securly
 from dotenv import load_dotenv
@@ -38,34 +38,38 @@ async def on_message(message):
 
 # \$dig\s*([1-3]?[0-9]),([1-3]?[0-9])   
     if message.content.startswith('$'):
-        
-        splitMsg = message.content.split(' ' and ',')
 
         #see if msg matches with a command and if it does run the respective action
         #IT WORKS HAZZZA 
-        matchResults = re.match('(\\$dig|\\$flag)\\s*([1-9]?[0-9]),([1-3]?[0-9]', message.content)
-        if matchResults is not None:
+        digOrFlagMatchResults = re.match('(\\$dig|\\$flag)\\s*([1-9]?[0-9]),([1-3]?[0-9])', message.content)
+        if digOrFlagMatchResults is not None:
             
-            action = matchResults.group(1)
-            row = int(matchResults.group(2))
-            spot = int(matchResults.group(3))
+            action = digOrFlagMatchResults.group(1)
+            row = int(digOrFlagMatchResults.group(2))
+            spot = int(digOrFlagMatchResults.group(3))
             if action == '$dig':
-                GameMaster.Dig(row,spot,message)
+                GameMaster02.Dig(row,spot,message,client)
             if action == '$flag':
-                GameMaster.Flag(row,spot,message)
+                GameMaster02.Flag(row,spot,message,client)
             
             message = await message.channel.fetch_message(message.id)
-
-        if re.match('\\Q$\\E[[:alpha:]]*', splitMsg[0]):
+        #$play msg with diffuculty
+        playAndDiffcultyMatchResults = re.match('(\\S{5})\\s*(\\S+)', message.content)
+        if playAndDiffcultyMatchResults is not None:
             await message.channel.send('Starting a new game')
-            GameMaster.initalization(splitMsg[1])
+            GameMaster02.initalization(playAndDiffcultyMatchResults.group(2))
 
         
         print("Is printing grid: " + str(is_printing_grid))
         is_printing_grid = True
         try:
-            for x in GameMaster.grid:
-                await message.channel.send(' '.join(x))
+            msg = []
+            for x in GameMaster02.userGrid:
+
+                tempMsg = await message.channel.send(' '.join(str(x)))
+                msg.append(tempMsg.id)
+
+
         finally:
             print("Is printing grid: " + str(is_printing_grid))
             is_printing_grid = False
