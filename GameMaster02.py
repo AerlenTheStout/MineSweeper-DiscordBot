@@ -193,13 +193,15 @@ def rowCoordinates(Y):
     for i in coordTable:
         if coordTable[i] == Y: # type: ignore
             Y = i
-    return Y
+            return Y
+    
     
 def XLetters(X):
     for i in ALPHABET:
-        if ALPHABET[i] == X:
-            X = i
-    return X
+        if X == i:
+            X = ALPHABET[i]
+            return X
+    
 def startingSpot():
 #chose a random X to be the first X to be revealed
     zeropicked = False

@@ -45,18 +45,41 @@ async def on_message(message):
     global is_printing_grid
     is_printing_grid = False
 
+    async def printGrid():
+        is_printing_grid = True
+        
+        try:
+            print("Is printing grid: " + str(is_printing_grid))
+            msg = []
+            GameMaster02.userToEmojiGrid()
+            GameMaster02.finalPrints()
+            for i in range(len(GameMaster02.emojiGrid)):
+                tempMsg = await message.channel.send((str(GameMaster02.emojiGrid[i]).translate(GameMaster02.target)))
+                msg.append(tempMsg.id)
+                sleep(0.5)
+
+
+        finally:
+            print("Is printing grid: " + str(is_printing_grid))
+            is_printing_grid = False
+            gridID = message.id
+
+        if is_printing_grid and message.content != ('') :
+                await message.delete()
+
 # \$dig\s*([1-3]?[0-9]),([1-3]?[0-9])   
     if message.content.startswith('$'):
 
         #see if msg matches with a command and if it does run the respective action
         #IT WORKS HAZZZA 
-        digOrFlagMatchResults = re.match('(\\$dig|\\$flag)\\s*([1-9]?[0-9]),([1-9]?[0-9])', message.content)
+        digOrFlagMatchResults = re.match('(\\$dig|\\$flag)\\s*([a-zA-Z]),([1-9]?[0-9])', message.content)
 
         if digOrFlagMatchResults is not None:
             
             action = digOrFlagMatchResults.group(1)
             X = digOrFlagMatchResults.group(2)
             Y = int(digOrFlagMatchResults.group(3))
+
 
             X = GameMaster02.XLetters(X)
             Y = GameMaster02.rowCoordinates(Y)
@@ -65,8 +88,10 @@ async def on_message(message):
             
             if action.lower() == '$dig':
                 await GameMaster02.Dig(X,Y,message,client)
+                await printGrid()
             if action.lower() == '$flag':
                 await GameMaster02.Flag(X,Y,message,client)
+                await printGrid()
             
         message = await message.channel.fetch_message(message.id)
 
@@ -74,31 +99,6 @@ async def on_message(message):
         playAndDiffcultyMatchResults = re.match('(\\S{5})\\s*(\\S+)', message.content)
         if playAndDiffcultyMatchResults is not None:
             await GameMaster02.initalization(playAndDiffcultyMatchResults.group(2),client,message)
-
-
-        async def printGrid():
-                is_printing_grid = True
-                
-                try:
-                    print("Is printing grid: " + str(is_printing_grid))
-                    msg = []
-                    GameMaster02.userToEmojiGrid()
-                    GameMaster02.finalPrints()
-                    for i in range(len(GameMaster02.emojiGrid)):
-                        tempMsg = await message.channel.send((str(GameMaster02.emojiGrid[i]).translate(GameMaster02.target)))
-                        msg.append(tempMsg.id)
-                        sleep(0.5)
-
-
-                finally:
-                    print("Is printing grid: " + str(is_printing_grid))
-                    is_printing_grid = False
-                    gridID = message.id
-
-                if is_printing_grid and message.content != ('') :
-                        await message.delete()
-
-
 
         if GameMaster02.badDifficulty == False:
         
