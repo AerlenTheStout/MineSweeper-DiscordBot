@@ -98,11 +98,13 @@ async def on_message(message):
                 await GameMaster02.Dig(X,Y,message,client)
                 print('digged')
                 await editPrintedGrid(Y)
+                message.delete(delete_after=5)
             if action.lower() == '$flag':
                 print('flagging')
                 await GameMaster02.Flag(X,Y,message,client)
                 print('flagged')
                 await editPrintedGrid(Y)
+                message.delete(delete_after=5)
             GameMaster02.win()
         #message = await message.channel.fetch_message(message.id)
 
