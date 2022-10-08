@@ -175,8 +175,9 @@ def aroundZero(X,Y):
             if (Y+z[0]) <= len(originGrid)-1:
                 if (X+z[1]) >= 0:
                     if (X+z[1]) <= rowlength-1:
-                                userGrid[Y+z[1]][X+z[0]] = originGrid[Y+z[1]][X+z[0]]
-        
+                        userGrid[Y+z[0]][X+z[1]] = originGrid[Y+z[0]][X+z[1]]
+        if userGrid[Y+z[0]][X+z[1]] == 0:
+            aroundZero(X+z[1],Y+z[0])
 
 #next
 #TODO: make it so that if you dig a zero it digs all the zeros around it
