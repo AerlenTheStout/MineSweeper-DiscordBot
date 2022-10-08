@@ -1,5 +1,7 @@
 
 #basic imports
+import asyncio
+import random
 from time import sleep
 import discord
 import os
@@ -24,8 +26,6 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 client = discord.Client(intents=intents)
-
-
 
 @client.event
 async def on_ready():
@@ -64,7 +64,7 @@ async def on_message(message):
         #$play msg with diffuculty
         playAndDiffcultyMatchResults = re.match('(\\S{5})\\s*(\\S+)', message.content)
         if playAndDiffcultyMatchResults is not None:
-            GameMaster02.initalization(playAndDiffcultyMatchResults.group(2),client,message)
+            await GameMaster02.initalization(playAndDiffcultyMatchResults.group(2),client,message)
 
         
         if GameMaster02.badDifficulty == False:
@@ -73,7 +73,7 @@ async def on_message(message):
             try:
                 msg = []
                 for i in range(len(GameMaster02.emojiGrid)):
-
+                   
                     tempMsg = await message.channel.send((str(GameMaster02.emojiGrid[i]).translate(GameMaster02.target)))
                     msg.append(tempMsg.id)
                     sleep(0.5)

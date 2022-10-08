@@ -39,7 +39,7 @@ COMMANDS = {
     "flag" : -2
 }
                   #beginner
-def initalization(requestedDifficulty,client,message):
+async def initalization(requestedDifficulty,client,message):
 #def initalization(requestedDifficulty):
 #This makes and sets the grid variables acording to the difficulty
     global rowlength
@@ -51,15 +51,16 @@ def initalization(requestedDifficulty,client,message):
     for difficulty in DIFFICULTIES:
         requestedDifficulty = requestedDifficulty.lower()
         if re.match(requestedDifficulty,difficulty):
-            client.loop.create_task(message.channel.send('Starting a new game'))
+            await message.channel.send('Starting a new game')
+            sleep(0.5)
             rowlength = DIFFICULTIES[difficulty][0]
             rowquantity = DIFFICULTIES[difficulty][1]
             minequantity = DIFFICULTIES[difficulty][2]
             badDifficulty = False
             CreateGrid()
 
-        if re.match(requestedDifficulty,difficulty)!= True:
-            client.loop.create_task(message.channel.send("Please chose a valid difficulty", delete_after=5))
+        if re.match(requestedDifficulty,difficulty)== False:
+            client.loop.create_task(message.channel.send("Please chose a valid difficulty"))
             badDifficulty = True
             break
 
