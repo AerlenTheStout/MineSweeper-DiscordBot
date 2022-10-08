@@ -43,6 +43,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     global is_printing_grid
+    is_printing_grid = False
 
 # \$dig\s*([1-3]?[0-9]),([1-3]?[0-9])   
     if message.content.startswith('$'):
