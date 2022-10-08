@@ -125,7 +125,6 @@ async def Dig(X,Y,message,client):
             aroundZero(X,Y)
         if originGrid[Y][X] == 9:
             lose()
-        await editSentGrid()
         finalPrints()
         await message.reply("You dug this spot", delete_after=4)
         
@@ -263,9 +262,8 @@ def lose():
     tempAlphabet.append("0")
     emojiGrid.append(tempAlphabet)
     print("GAME OVER")
-    objects = dir()
-    for obj in objects:
-        del globals()[obj]
+    originGrid.clear()
+
 def win():
     for i in userGrid:
         for n in i:
@@ -287,6 +285,4 @@ def win():
             tempAlphabet.append("0")
             emojiGrid.append(tempAlphabet)
             print("YOU WIN!")
-            objects = dir()
-            for obj in objects:
-                del globals()[obj]
+            originGrid.clear()
