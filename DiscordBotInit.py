@@ -94,8 +94,11 @@ async def on_message(message):
                         print("Is printing grid: " + str(is_printing_grid))
                         is_printing_grid = False
                         gridID = message.id
-                else :
+
                     if is_printing_grid and message.content != ('') :
-                        await message.delete()
+                            await message.delete()
+                else :
+                    await message.channel.send('Send a working command please')
+                    
 
 client.run(TOKEN) # type: ignore
