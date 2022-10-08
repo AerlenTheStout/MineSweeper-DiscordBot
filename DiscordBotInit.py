@@ -55,9 +55,9 @@ async def on_message(message):
             print(action,X,Y)
 
             if action == '$dig':
-                GameMaster02.Dig(X,Y,message,client)
+                await GameMaster02.Dig(X,Y,message,client)
             if action == '$flag':
-                GameMaster02.Flag(X,Y,message,client)
+                await GameMaster02.Flag(X,Y,message,client)
             
         message = await message.channel.fetch_message(message.id)
 
