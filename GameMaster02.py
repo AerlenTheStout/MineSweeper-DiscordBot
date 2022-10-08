@@ -187,6 +187,7 @@ def coordTabler():
     coordTable = {}
     for i in range(rowquantity):
         coordTable[i] = list(reversed(range(1,(rowquantity+1))))[i]
+
 def rowCoordinates(Y):
     Y = int(Y)
     for i in coordTable:
@@ -194,6 +195,11 @@ def rowCoordinates(Y):
             Y = i
     return Y
     
+def XLetters(X):
+    for i in ALPHABET:
+        if ALPHABET[i] == X:
+            X = i
+    return X
 def startingSpot():
 #chose a random X to be the first X to be revealed
     zeropicked = False
@@ -221,6 +227,7 @@ def userToEmojiGrid():
                     y[y.index(z)] = EMOJIS[i]
     for i in emojiGrid:
         emojiGrid[emojiGrid.index(i)].append(coordTable[emojiGrid.index(i)])
+    
 
 def finalPrints():
 #this prints the original grid

@@ -57,6 +57,7 @@ async def on_message(message):
             X = digOrFlagMatchResults.group(2)
             Y = int(digOrFlagMatchResults.group(3))
 
+            X = GameMaster02.XLetters(X)
             Y = GameMaster02.rowCoordinates(Y)
 
             print(action,X,Y)
