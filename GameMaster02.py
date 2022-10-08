@@ -5,9 +5,7 @@
 
 from random import choice
 import copy
-from time import sleep
 import re
-from discord import Emoji
 
 DIFFICULTIES = {
     #[rows length, number of rows, number of mines]
@@ -32,7 +30,6 @@ EMOJIS = {
 9 : ":bomb:"
 }
 
-
 ALPHABET = {
     "a" : 0,"b" : 1,"c" : 2,"d" : 3,"e" : 4,"f" : 5,"g" : 6,"h" : 7,"i" : 8,"j" : 9,"k" : 10,"l" : 11,"m" : 12,"n" : 13,"o" : 14,"p" : 15,"q" : 16,"r" : 17,"s" : 18,"t" : 19,"u" : 20,"v" : 21,"w" : 22,"x" : 23,"y" : 24,"z" : 25
 }
@@ -52,7 +49,6 @@ async def initalization(requestedDifficulty,client,message):
         requestedDifficulty = requestedDifficulty.lower()
         if re.match(requestedDifficulty,difficulty):
             await message.channel.send('Starting a new game')
-            sleep(0.5)
             rowlength = DIFFICULTIES[difficulty][0]
             rowquantity = DIFFICULTIES[difficulty][1]
             minequantity = DIFFICULTIES[difficulty][2]
@@ -122,11 +118,7 @@ def createUserGrid():
             userGrid[i][y] = -1
     startingSpot()
 
-async def editSentGrid():
-    #get rows from cordinates, edit corosponding rows from msg[i]
-    #edit with corosponding rows from userGrid[i]
 
-    return
 
 async def Dig(X,Y,message,client):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
