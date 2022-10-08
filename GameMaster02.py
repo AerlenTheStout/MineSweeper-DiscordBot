@@ -159,15 +159,21 @@ async def Flag(X,Y,message,client):
         sleep(10)
         message.delete
 
+global indexIgnore
+indexIgnore = []
+
 def aroundZero(X,Y):
-    for z in differences:
-        if (Y+z[0]) >= 0:
-            if (Y+z[0]) <= len(originGrid)-1:
-                if (X+z[1]) >= 0:
-                    if (X+z[1]) <= rowlength-1:
-                        userGrid[Y+z[0]][X+z[1]] = originGrid[Y+z[0]][X+z[1]]
-        if userGrid[Y+z[0]][X+z[1]] == 0:
-            aroundZero(X+z[1],Y+z[0])
+    
+    if [Y,X] not in indexIgnore:
+        for z in differences:
+            if (Y+z[0]) >= 0:
+                if (Y+z[0]) <= len(originGrid)-1:
+                    if (X+z[1]) >= 0:
+                        if (X+z[1]) <= rowlength-1:
+                            userGrid[Y+z[0]][X+z[1]] = originGrid[Y+z[0]][X+z[1]]
+                            indexIgnore.append([Y,X])
+                            if userGrid[Y+z[0]][X+z[1]] == 0:
+                                aroundZero(X+z[1],Y+z[0])
 
 #next
 #TODO: make it so that if you dig a zero it digs all the zeros around it
