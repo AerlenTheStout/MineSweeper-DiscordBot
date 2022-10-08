@@ -3,6 +3,8 @@
 #TODO: at the start everything show us as a :blue_box: 
 #TODO: make diffuculties use regex
 
+
+
 from random import choice
 import copy
 from time import sleep
@@ -38,7 +40,7 @@ COMMANDS = {
     "dig" : -1,
     "flag" : -2
 }
-                  #beginner
+
 async def initalization(requestedDifficulty,client,message):
 #def initalization(requestedDifficulty):
 #This makes and sets the grid variables acording to the difficulty
@@ -76,6 +78,7 @@ def CreateGrid():
         for y in range(rowlength):
             originGrid[i].append(0)
     placeMines()
+
 
 def placeMines():
 #This is the function that generates the mines
@@ -132,6 +135,7 @@ async def editSentGrid():
     return
 
 #TODO: change to dig and flag
+
 async def Dig(X,Y,message,client):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if userGrid[Y][X] == -1:
@@ -149,7 +153,7 @@ async def Dig(X,Y,message,client):
         await message.reply("You have already dug this spot", delete_after=4)
         sleep(10)
         message.delete
-    
+
 async def Flag(X,Y,message,client):
     #this is a function that takes in a x,y cordiate and sets that cordinate to a flag(-2)
     if userGrid[Y][X] == -1:
@@ -176,6 +180,7 @@ def aroundZero(X,Y):
 #TODO: make it so that if you dig a zero it digs all the zeros around it
 # make it so when givem a cordiante it reveal() the number
 # print the grid with emojis
+
 def rowCoordinates(Y):  
     Y = int(Y)
     coordTable = {}
@@ -203,6 +208,7 @@ def startingSpot():
 #this takes the grid and swaps out each number for its corresponding string from discordspoilers            
 
 #TODO: improve this function
+
 def userToEmojiGrid():
     global emojiGrid
     emojiGrid = copy.deepcopy(userGrid)

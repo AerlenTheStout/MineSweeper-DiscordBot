@@ -8,12 +8,18 @@ import os
 import re
 #import mine and grid generation
 import GameMaster02
+#speedtesting
+from profilehooks import profile
 
 #TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
 #TODO: add help command with info on how to 
 #TODO: make end condition either win or loss
 #TODO: block startying new game untill other one is over
 
+
+#XXX: OKAY FOR THIS PAGE TOMMOROOW
+#when i dig with a capital letter at the start it take an incredibly long time to respond
+#when i dig withOUT a capital letter at the start it responds almsot instantly
 
 #dotenv to store discord token securly
 from dotenv import load_dotenv
@@ -31,6 +37,7 @@ client = discord.Client(intents=intents)
 async def on_ready():
     print(f'We have logged in as {client.user}')
 
+@profile(immediate=True)
 @client.event
 async def on_message(message):
     if message.author == client.user:
