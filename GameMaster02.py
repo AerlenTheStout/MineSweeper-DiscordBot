@@ -230,6 +230,7 @@ def userToEmojiGrid():
     tempAlphabet = []
     for i in range (rowlength):
         tempAlphabet.append(ALPHABETEMOJI[i])
+    tempAlphabet.append("0")
     emojiGrid.append(tempAlphabet)
     
 
