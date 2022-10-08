@@ -73,9 +73,9 @@ async def on_message(message):
         print("Is printing grid: " + str(is_printing_grid))
         try:
             msg = []
-            for i in GameMaster02.userGrid:
+            for i in range(len(GameMaster02.emojiGrid)):
 
-                tempMsg = await message.channel.send(' '.join(str(i)))
+                tempMsg = await message.channel.send((str(GameMaster02.emojiGrid[i]).translate(GameMaster02.target)))
                 msg.append(tempMsg.id)
                 sleep(0.5)
 

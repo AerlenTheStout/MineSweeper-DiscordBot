@@ -39,8 +39,8 @@ COMMANDS = {
     "flag" : -2
 }
                   #beginner
-#def initalization(requestedDifficulty,client,message):
-def initalization(requestedDifficulty):
+def initalization(requestedDifficulty,client,message):
+#def initalization(requestedDifficulty):
 #This makes and sets the grid variables acording to the difficulty
     global rowlength
     global rowquantity
@@ -48,13 +48,13 @@ def initalization(requestedDifficulty):
 
     for difficulty in DIFFICULTIES:
         requestedDifficulty = requestedDifficulty.lower()
-        if re.match(difficulty,requestedDifficulty):
+        if re.match(requestedDifficulty,difficulty):
             rowlength = DIFFICULTIES[difficulty][0]
             rowquantity = DIFFICULTIES[difficulty][1]
             minequantity = DIFFICULTIES[difficulty][2]
 
-#        else :
-#            client.loop.create_task(message.channel.send("You have dug this X"))
+        else :
+            client.loop.create_task(message.channel.send("please chose a valid difficulty", delete_after=5))
     CreateGrid()
 
 def CreateGrid():
@@ -131,12 +131,12 @@ def Dig(X,Y,message,client):
 
         editSentGrid()
 
-        client.loop.create_task(message.reply("You have dug this X", delete_after=4))
+        client.loop.create_task(message.reply("You have dug this spot", delete_after=4))
         sleep(10)
         message.delete
         
     else :
-        client.loop.create_task(message.reply("You have already dug this X", delete_after=4))
+        client.loop.create_task(message.reply("You have already dug this spot", delete_after=4))
         sleep(10)
         message.delete
     
@@ -145,12 +145,12 @@ def Flag(X,Y,message,client):
     if userGrid[Y][X] == -1:
         userGrid[Y][X] = -2
         editSentGrid()
-        client.loop.create_task(message.reply("You have flagged this X", delete_after=4))
+        client.loop.create_task(message.reply("You have flagged this spot", delete_after=4))
         sleep(10)
         message.delete
         
     else :
-        client.loop.create_task(message.reply("You have already flagged this X", delete_after=4))
+        client.loop.create_task(message.reply("You have already flagged this spot", delete_after=4))
         sleep(10)
         message.delete
 
@@ -219,13 +219,14 @@ def finalPrints():
 #prints the user grid
     for i in userGrid:
         print(i)
-#prints emji grid
-    for i in emojiGrid:
-        
-        print(i)
+#prints emoji grid
+    for i in range(len(emojiGrid)):
+        global target
+        target = {91:None,93:None,39:None,44:None}
+        finalEmojiGrid = (str(emojiGrid[i]).translate(target))
+        print(finalEmojiGrid)
 
-
-initalization("beginner")
+#initalization("beginner")
 
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
