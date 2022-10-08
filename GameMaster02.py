@@ -17,7 +17,8 @@ DIFFICULTIES = {
     #[rows length, number of rows, number of mines]
     "beginner" : [9,9,10],
     "intermediate" : [16,16,40],
-    "expert" : [16,30,99]
+    "expert" : [16,30,99],
+    "mobile" : [11,20,34]
 
 }
 
