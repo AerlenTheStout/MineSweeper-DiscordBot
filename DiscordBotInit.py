@@ -54,7 +54,7 @@ async def on_message(message):
         if digOrFlagMatchResults is not None:
             
             action = digOrFlagMatchResults.group(1)
-            X = int(digOrFlagMatchResults.group(2))-1
+            X = digOrFlagMatchResults.group(2)
             Y = int(digOrFlagMatchResults.group(3))
 
             Y = GameMaster02.rowCoordinates(Y)

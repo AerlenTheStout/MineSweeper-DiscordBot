@@ -32,11 +32,6 @@ EMOJIS = {
 9 : ":bomb:"
 }
 
-COMMANDS = {
-    "dig" : -1,
-    "flag" : -2
-}
-
 async def initalization(requestedDifficulty,client,message):
 #def initalization(requestedDifficulty):
 #This makes and sets the grid variables acording to the difficulty
