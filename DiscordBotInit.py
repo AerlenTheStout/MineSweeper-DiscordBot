@@ -1,8 +1,5 @@
 
 #basic imports
-import asyncio
-import random
-from time import sleep
 import discord
 import os
 import re
@@ -10,8 +7,6 @@ import re
 import GameMaster02
 #speedtesting
 #from profilehooks import profile
-
-
 
 #TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
 #TODO: add help command with info on how to 
@@ -52,22 +47,32 @@ async def on_message(message):
         
         try:
             print("Is printing grid: " + str(is_printing_grid))
-            msg = []
+            global msgIDs
+            msgIDs = []
             GameMaster02.userToEmojiGrid()
             GameMaster02.finalPrints()
             for i in range(len(GameMaster02.emojiGrid)):
                 tempMsg = await message.channel.send((str(GameMaster02.emojiGrid[i]).translate(GameMaster02.target)))
-                msg.append(tempMsg.id)
-                sleep(0.5)
+                msgIDs.append(tempMsg.id)
+                
 
 
         finally:
             print("Is printing grid: " + str(is_printing_grid))
             is_printing_grid = False
-            gridID = message.id
+            #gridID = message.id
 
         if is_printing_grid and message.content != ('') :
                 await message.delete()
+
+    async def editPrintedGrid(Y):
+        wantedMSGID = msgIDs[Y]
+        wantedMSG = await message.channel.fetch_message(wantedMSGID)
+        GameMaster02.userToEmojiGrid()
+        GameMaster02.finalPrints()
+        await wantedMSG.edit(content=(str(GameMaster02.emojiGrid[Y]).translate(GameMaster02.target)))
+
+        
 
 # \$dig\s*([1-3]?[0-9]),([1-3]?[0-9])   
     if message.content.startswith('$'):
@@ -92,15 +97,16 @@ async def on_message(message):
                 print('digging')
                 await GameMaster02.Dig(X,Y,message,client)
                 print('digged')
-                await printGrid()
+                await editPrintedGrid(Y)
+                message.delete(delete_after=5)
             if action.lower() == '$flag':
                 print('flagging')
-                #FIXME: TAKE SO FICKING LONNG
                 await GameMaster02.Flag(X,Y,message,client)
                 print('flagged')
-                await printGrid()
+                await editPrintedGrid(Y)
+                message.delete(delete_after=5)
             GameMaster02.win()
-        message = await message.channel.fetch_message(message.id)
+        #message = await message.channel.fetch_message(message.id)
 
         #$play msg with diffuculty
         playAndDiffcultyMatchResults = re.match('(\\S{5})\\s*(\\S+)', message.content)
@@ -108,8 +114,15 @@ async def on_message(message):
             await GameMaster02.initalization(playAndDiffcultyMatchResults.group(2),client,message)
 
         if GameMaster02.badDifficulty == False:
-        
             if re.match('\\$play', message.content):
+                await printGrid()
+            elif re.match('\\$lose', message.content):
+                await printGrid()
+            elif re.match('\\$win', message.content):
+                await printGrid()
+            elif re.match('\\$dig', message.content):
+                await printGrid()
+            elif re.match('\\$flag', message.content):
                 await printGrid()
             else:
                 await message.channel.send('Send a working command please', delete_after=5)
