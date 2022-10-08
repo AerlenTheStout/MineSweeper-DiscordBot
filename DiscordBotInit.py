@@ -75,31 +75,38 @@ async def on_message(message):
         if playAndDiffcultyMatchResults is not None:
             await GameMaster02.initalization(playAndDiffcultyMatchResults.group(2),client,message)
 
-        async def printGrid():
-            if GameMaster02.badDifficulty == False:
-                if re.match('\\$play', message.content):
-                    is_printing_grid = True
-                    
-                    try:
-                        print("Is printing grid: " + str(is_printing_grid))
-                        msg = []
-                        GameMaster02.userToEmojiGrid()
-                        GameMaster02.finalPrints()
-                        for i in range(len(GameMaster02.emojiGrid)):
-                            tempMsg = await message.channel.send((str(GameMaster02.emojiGrid[i]).translate(GameMaster02.target)))
-                            msg.append(tempMsg.id)
-                            sleep(0.5)
+
+    async def printGrid():
+            is_printing_grid = True
+            
+            try:
+                print("Is printing grid: " + str(is_printing_grid))
+                msg = []
+                GameMaster02.userToEmojiGrid()
+                GameMaster02.finalPrints()
+                for i in range(len(GameMaster02.emojiGrid)):
+                    tempMsg = await message.channel.send((str(GameMaster02.emojiGrid[i]).translate(GameMaster02.target)))
+                    msg.append(tempMsg.id)
+                    sleep(0.5)
 
 
-                    finally:
-                        print("Is printing grid: " + str(is_printing_grid))
-                        is_printing_grid = False
-                        gridID = message.id
+            finally:
+                print("Is printing grid: " + str(is_printing_grid))
+                is_printing_grid = False
+                gridID = message.id
 
-                    if is_printing_grid and message.content != ('') :
-                            await message.delete()
-                else :
-                    await message.channel.send('Send a working command please')
+            if is_printing_grid and message.content != ('') :
+                    await message.delete()
+
+
+
+    if GameMaster02.badDifficulty == False:
+        if re.match('\\$play', message.content):
+            await printGrid()
+        else:
+            await message.channel.send('Send a working command please')
+        
+                
                     
 
 client.run(TOKEN) # type: ignore
