@@ -9,7 +9,7 @@ import re
 #import mine and grid generation
 import GameMaster02
 #speedtesting
-from profilehooks import profile
+#from profilehooks import profile
 
 #TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
 #TODO: add help command with info on how to 
@@ -37,7 +37,7 @@ client = discord.Client(intents=intents)
 async def on_ready():
     print(f'We have logged in as {client.user}')
 
-@profile(immediate=True)
+#@profile(immediate=True)
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -79,8 +79,9 @@ async def on_message(message):
             print("Is printing grid: " + str(is_printing_grid))
             try:
                 msg = []
+                GameMaster02.userToEmojiGrid()
+                GameMaster02.finalPrints()
                 for i in range(len(GameMaster02.emojiGrid)):
-                   
                     tempMsg = await message.channel.send((str(GameMaster02.emojiGrid[i]).translate(GameMaster02.target)))
                     msg.append(tempMsg.id)
                     sleep(0.5)

@@ -22,7 +22,7 @@ DIFFICULTIES = {
 }
 
 EMOJIS = {
--2 : ":trianglular_flag_on_post:",
+-2 : ":triangular_flag_on_post:",
 -1 : ":blue_square:",
 0 : ":zero:",
 1 : ":one:",
@@ -77,6 +77,7 @@ def CreateGrid():
         originGrid.append(list())
         for y in range(rowlength):
             originGrid[i].append(0)
+    coordTabler()
     placeMines()
 
 
@@ -144,7 +145,7 @@ async def Dig(X,Y,message,client):
             aroundZero(X,Y)
 
         await editSentGrid()
-
+        finalPrints()
         await message.reply("You have dug this spot", delete_after=4)
         sleep(10)
         message.delete
@@ -171,21 +172,24 @@ async def Flag(X,Y,message,client):
 
 def aroundZero(X,Y):
     for z in differences:
-        try:
-            userGrid[Y+z[0]][X+z[1]] += originGrid[Y][X]    
-        finally:
-            pass
+        if (Y+z[0]) >= 0:
+            if (Y+z[0]) <= len(originGrid)-1:
+                if (X+z[1]) >= 0:
+                    if (X+z[1]) <= rowlength-1:
+                                userGrid[Y+z[0]][X+z[1]] = originGrid[Y][X]
 
 #next
 #TODO: make it so that if you dig a zero it digs all the zeros around it
 # make it so when givem a cordiante it reveal() the number
 # print the grid with emojis
 
-def rowCoordinates(Y):  
-    Y = int(Y)
+def coordTabler():  
+    global coordTable
     coordTable = {}
     for i in range(rowquantity):
         coordTable[i] = list(reversed(range(1,(rowquantity+1))))[i]
+def rowCoordinates(Y):
+    Y = int(Y)
     for i in coordTable:
         if coordTable[i] == Y: # type: ignore
             Y = i
@@ -217,7 +221,6 @@ def userToEmojiGrid():
             for z in y:
                 if z == i:
                     y[y.index(z)] = EMOJIS[i]
-    finalPrints()
 
 
 def finalPrints():
@@ -241,7 +244,7 @@ def finalPrints():
         target = {91:None,93:None,39:None,44:None}
         finalEmojiGrid = (str(emojiGrid[i]).translate(target))
         print(finalEmojiGrid)
-
+    print(coordTable)
 #initalization("beginner")
 
 #plase hepl ~ BbrDbr
