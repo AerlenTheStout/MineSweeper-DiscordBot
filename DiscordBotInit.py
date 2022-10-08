@@ -1,5 +1,6 @@
 
 #basic imports
+import asyncio
 import discord
 import os
 import re
@@ -98,13 +99,15 @@ async def on_message(message):
                 await GameMaster02.Dig(X,Y,message,client)
                 print('digged')
                 await editPrintedGrid(Y)
-                message.delete(delete_after=5)
+                await asyncio.sleep(10)
+                message.delete()
             if action.lower() == '$flag':
                 print('flagging')
                 await GameMaster02.Flag(X,Y,message,client)
                 print('flagged')
                 await editPrintedGrid(Y)
-                message.delete(delete_after=5)
+                await asyncio.sleep(10)
+                message.delete()
             GameMaster02.win()
         #message = await message.channel.fetch_message(message.id)
 
