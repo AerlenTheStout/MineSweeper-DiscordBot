@@ -3,15 +3,11 @@
 #TODO: at the start everything show us as a :blue_box: 
 #TODO: make diffuculties use regex
 
-
-
 from random import choice
 import copy
 from time import sleep
 import re
-
 from discord import Emoji
-
 
 DIFFICULTIES = {
     #[rows length, number of rows, number of mines]
@@ -19,7 +15,6 @@ DIFFICULTIES = {
     "intermediate" : [16,16,40],
     "expert" : [16,30,99],
     "mobile" : [11,20,34]
-
 }
 
 EMOJIS = {
@@ -67,9 +62,6 @@ async def initalization(requestedDifficulty,client,message):
             badDifficulty = True
             break
 
-
-    
-
 def CreateGrid():
 #create the grid by putting a new list in the gird for each rows and then apeending to each rows to make collumns
     global originGrid
@@ -80,7 +72,6 @@ def CreateGrid():
             originGrid[i].append(0)
     coordTabler()
     placeMines()
-
 
 def placeMines():
 #This is the function that generates the mines
@@ -169,7 +160,6 @@ async def Flag(X,Y,message,client):
         sleep(10)
         message.delete
 
-
 def aroundZero(X,Y):
     for z in differences:
         userGrid[Y+z[1]][X+z[0]] = originGrid[Y+z[1]][X+z[0]]
@@ -191,8 +181,6 @@ def rowCoordinates(Y):
             Y = i
     return Y
     
-            
-
 def startingSpot():
 #chose a random X to be the first X to be revealed
     zeropicked = False
