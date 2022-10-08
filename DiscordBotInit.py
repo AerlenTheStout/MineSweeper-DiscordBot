@@ -76,8 +76,9 @@ async def on_message(message):
         
         if GameMaster02.badDifficulty == False:
             is_printing_grid = True
-            print("Is printing grid: " + str(is_printing_grid))
+            
             try:
+                print("Is printing grid: " + str(is_printing_grid))
                 msg = []
                 GameMaster02.userToEmojiGrid()
                 GameMaster02.finalPrints()
