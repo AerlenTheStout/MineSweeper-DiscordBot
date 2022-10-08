@@ -148,18 +148,17 @@ async def Dig(X,Y,message,client):
 
 async def Flag(X,Y,message,client):
     #this is a function that takes in a x,y cordiate and sets that cordinate to a flag(-2)
+    print("1")
     if userGrid[Y][X] == -1:
         userGrid[Y][X] = -2
     
-        await editSentGrid()
+        #await editSentGrid()
+        print("1")
         await message.reply("You flagged this spot", delete_after=4)
-        sleep(10)
-        message.delete
         
     else :
         await message.reply("You have already flagged this spot", delete_after=4)
-        sleep(10)
-        message.delete
+        
 
 global indexIgnore
 indexIgnore = []

@@ -112,7 +112,7 @@ async def on_message(message):
             if re.match('\\$play', message.content):
                 await printGrid()
             else:
-                await message.channel.send('Send a working command please')
+                await message.channel.send('Send a working command please', delete_after=5)
         
                 
                     
