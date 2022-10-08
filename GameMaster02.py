@@ -32,6 +32,11 @@ EMOJIS = {
 9 : ":bomb:"
 }
 
+
+ALPHABET = {
+    "a" : 0,"b" : 1,"c" : 2,"d" : 3,"e" : 4,"f" : 5,"g" : 6,"h" : 7,"i" : 8,"j" : 9,"k" : 10,"l" : 11,"m" : 12,"n" : 13,"o" : 14,"p" : 15,"q" : 16,"r" : 17,"s" : 18,"t" : 19,"u" : 20,"v" : 21,"w" : 22,"x" : 23,"y" : 24,"z" : 25
+}
+
 async def initalization(requestedDifficulty,client,message):
 #def initalization(requestedDifficulty):
 #This makes and sets the grid variables acording to the difficulty
@@ -154,15 +159,21 @@ async def Flag(X,Y,message,client):
         sleep(10)
         message.delete
 
+global indexIgnore
+indexIgnore = []
+
 def aroundZero(X,Y):
-    for z in differences:
-        if (Y+z[0]) >= 0:
-            if (Y+z[0]) <= len(originGrid)-1:
-                if (X+z[1]) >= 0:
-                    if (X+z[1]) <= rowlength-1:
-                        userGrid[Y+z[0]][X+z[1]] = originGrid[Y+z[0]][X+z[1]]
-        if userGrid[Y+z[0]][X+z[1]] == 0:
-            aroundZero(X+z[1],Y+z[0])
+    
+    if [Y,X] not in indexIgnore:
+        for z in differences:
+            if (Y+z[0]) >= 0:
+                if (Y+z[0]) <= len(originGrid)-1:
+                    if (X+z[1]) >= 0:
+                        if (X+z[1]) <= rowlength-1:
+                            userGrid[Y+z[0]][X+z[1]] = originGrid[Y+z[0]][X+z[1]]
+                            indexIgnore.append([Y,X])
+                            if userGrid[Y+z[0]][X+z[1]] == 0:
+                                aroundZero(X+z[1],Y+z[0])
 
 #next
 #TODO: make it so that if you dig a zero it digs all the zeros around it
