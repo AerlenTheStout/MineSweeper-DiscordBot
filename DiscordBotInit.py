@@ -64,28 +64,27 @@ async def on_message(message):
         #$play msg with diffuculty
         playAndDiffcultyMatchResults = re.match('(\\S{5})\\s*(\\S+)', message.content)
         if playAndDiffcultyMatchResults is not None:
-            await message.channel.send('Starting a new game')
             GameMaster02.initalization(playAndDiffcultyMatchResults.group(2),client,message)
 
         
-        
-        is_printing_grid = True
-        print("Is printing grid: " + str(is_printing_grid))
-        try:
-            msg = []
-            for i in range(len(GameMaster02.emojiGrid)):
-
-                tempMsg = await message.channel.send((str(GameMaster02.emojiGrid[i]).translate(GameMaster02.target)))
-                msg.append(tempMsg.id)
-                sleep(0.5)
-
-
-        finally:
+        if GameMaster02.badDifficulty == False:
+            is_printing_grid = True
             print("Is printing grid: " + str(is_printing_grid))
-            is_printing_grid = False
-            gridID = message.id
-    else :
-        if is_printing_grid and message.content != ('') :
-            await message.delete()
+            try:
+                msg = []
+                for i in range(len(GameMaster02.emojiGrid)):
+
+                    tempMsg = await message.channel.send((str(GameMaster02.emojiGrid[i]).translate(GameMaster02.target)))
+                    msg.append(tempMsg.id)
+                    sleep(0.5)
+
+
+            finally:
+                print("Is printing grid: " + str(is_printing_grid))
+                is_printing_grid = False
+                gridID = message.id
+        else :
+            if is_printing_grid and message.content != ('') :
+                await message.delete()
 
 client.run(TOKEN) # type: ignore

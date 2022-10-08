@@ -45,17 +45,26 @@ def initalization(requestedDifficulty,client,message):
     global rowlength
     global rowquantity
     global minequantity
-
+#ugly but it works so shut the fuck up
+    global badDifficulty
+    badDifficulty = False
     for difficulty in DIFFICULTIES:
         requestedDifficulty = requestedDifficulty.lower()
         if re.match(requestedDifficulty,difficulty):
+            client.loop.create_task(message.channel.send('Starting a new game'))
             rowlength = DIFFICULTIES[difficulty][0]
             rowquantity = DIFFICULTIES[difficulty][1]
             minequantity = DIFFICULTIES[difficulty][2]
+            badDifficulty = False
+            CreateGrid()
 
-        else :
-            client.loop.create_task(message.channel.send("please chose a valid difficulty", delete_after=5))
-    CreateGrid()
+        if re.match(requestedDifficulty,difficulty)!= True:
+            client.loop.create_task(message.channel.send("Please chose a valid difficulty", delete_after=5))
+            badDifficulty = True
+            break
+
+
+    
 
 def CreateGrid():
 #create the grid by putting a new list in the gird for each rows and then apeending to each rows to make collumns
