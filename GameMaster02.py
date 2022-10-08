@@ -221,7 +221,8 @@ def userToEmojiGrid():
             for z in y:
                 if z == i:
                     y[y.index(z)] = EMOJIS[i]
-
+    for i in emojiGrid:
+        emojiGrid[emojiGrid.index(i)].append(coordTable[emojiGrid.index(i)])
 
 def finalPrints():
 #this prints the original grid
