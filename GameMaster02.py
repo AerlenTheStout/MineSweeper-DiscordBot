@@ -23,8 +23,8 @@ EMOJIS = {
 6 : ":six:",
 7 : ":seven:",
 8 : ":eight:",
-9 : ":bomb:",
-10: ":boom:"
+9 : ":boom:",
+10: ":bomb:"
 }
 
 ALPHABET = {
@@ -243,10 +243,6 @@ def finalPrints():
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
 def lose():
-    for i in originGrid:
-        for n in i:
-            if n == 9:
-                n = 10
     global emojiGrid
     emojiGrid = copy.deepcopy(originGrid)
     for i in EMOJIS:
@@ -271,6 +267,10 @@ def win():
                 return
         else:        
             global emojiGrid
+            for i in originGrid:
+                for n in i:
+                    if n == 9:
+                        n = 10
             emojiGrid = copy.deepcopy(originGrid)
             for i in EMOJIS:
                 for y in emojiGrid:
