@@ -1,8 +1,4 @@
 
-#TODO: allows fuctionaly to either dig or flag a square
-#TODO: at the start everything show us as a :blue_box: 
-#TODO: make diffuculties use regex
-
 from random import choice
 import copy
 import re
@@ -27,7 +23,8 @@ EMOJIS = {
 6 : ":six:",
 7 : ":seven:",
 8 : ":eight:",
-9 : ":bomb:"
+9 : ":bomb:",
+10: ":boom:"
 }
 
 ALPHABET = {
@@ -88,7 +85,7 @@ def placeMines():
 
 #This is the function that generates the numbers around the mines
 
-differences = [[0,-1],[0,1],[-1,0],[-1,-1],[-1,1],[1,0],[1,-1],[1,1]]
+differences = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]
 
 def addNumbersAroundBombs():
     for i in originGrid:
@@ -126,7 +123,8 @@ async def Dig(X,Y,message,client):
         userGrid[Y][X] = originGrid[Y][X]
         if originGrid[Y][X] == 0:
             aroundZero(X,Y)
-
+        if originGrid[Y][X] == 9:
+            lose()
         await editSentGrid()
         finalPrints()
         await message.reply("You dug this spot", delete_after=4)
@@ -165,8 +163,6 @@ def aroundZero(X,Y):
                             if userGrid[Y+z[0]][X+z[1]] == 0:
                                 aroundZero(X+z[1],Y+z[0])
 
-#next
-#TODO: make it so that if you dig a zero it digs all the zeros around it
 # make it so when givem a cordiante it reveal() the number
 # print the grid with emojis
 
@@ -204,8 +200,6 @@ def startingSpot():
     userToEmojiGrid()
 
 #this takes the grid and swaps out each number for its corresponding string from discordspoilers            
-
-#TODO: improve this function
 
 def userToEmojiGrid():
     global emojiGrid
@@ -246,7 +240,53 @@ def finalPrints():
         finalEmojiGrid = (str(emojiGrid[i]).translate(target))
         print(finalEmojiGrid)
     print(coordTable)
-#initalization("beginner")
 
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
+def lose():
+    for i in originGrid:
+        for n in i:
+            if n == 9:
+                n = 10
+    global emojiGrid
+    emojiGrid = copy.deepcopy(originGrid)
+    for i in EMOJIS:
+        for y in emojiGrid:
+            for z in y:
+                if z == i:
+                    y[y.index(z)] = EMOJIS[i]
+    for i in emojiGrid:
+        emojiGrid[emojiGrid.index(i)].append(coordTable[emojiGrid.index(i)])
+    tempAlphabet = []
+    for i in range (rowlength):
+        tempAlphabet.append(ALPHABETEMOJI[i])
+    tempAlphabet.append("0")
+    emojiGrid.append(tempAlphabet)
+    print("GAME OVER")
+    objects = dir()
+    for obj in objects:
+        del globals()[obj]
+def win():
+    for i in userGrid:
+        for n in i:
+            if n == -1:
+                return
+        else:        
+            global emojiGrid
+            emojiGrid = copy.deepcopy(originGrid)
+            for i in EMOJIS:
+                for y in emojiGrid:
+                    for z in y:
+                        if z == i:
+                            y[y.index(z)] = EMOJIS[i]
+            for i in emojiGrid:
+                emojiGrid[emojiGrid.index(i)].append(coordTable[emojiGrid.index(i)])
+            tempAlphabet = []
+            for i in range (rowlength):
+                tempAlphabet.append(ALPHABETEMOJI[i])
+            tempAlphabet.append("0")
+            emojiGrid.append(tempAlphabet)
+            print("YOU WIN!")
+            objects = dir()
+            for obj in objects:
+                del globals()[obj]

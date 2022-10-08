@@ -101,7 +101,7 @@ async def on_message(message):
                 await GameMaster02.Flag(X,Y,message,client)
                 print('flagged')
                 await editPrintedGrid(Y)
-            
+            GameMaster02.win()
         #message = await message.channel.fetch_message(message.id)
 
         #$play msg with diffuculty
