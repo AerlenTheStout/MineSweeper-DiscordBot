@@ -11,6 +11,8 @@ import GameMaster02
 #speedtesting
 #from profilehooks import profile
 
+
+
 #TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
 #TODO: add help command with info on how to 
 #TODO: make end condition either win or loss
@@ -87,10 +89,15 @@ async def on_message(message):
             print(action,X,Y)
             
             if action.lower() == '$dig':
+                print('digging')
                 await GameMaster02.Dig(X,Y,message,client)
+                print('digged')
                 await printGrid()
             if action.lower() == '$flag':
+                print('flagging')
+                #FIXME: TAKE SO FICKING LONNG
                 await GameMaster02.Flag(X,Y,message,client)
+                print('flagged')
                 await printGrid()
             
         message = await message.channel.fetch_message(message.id)

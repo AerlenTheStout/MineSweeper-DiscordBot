@@ -137,7 +137,7 @@ async def Dig(X,Y,message,client):
 
         await editSentGrid()
         finalPrints()
-        await message.reply("You have dug this spot", delete_after=4)
+        await message.reply("You dug this spot", delete_after=4)
         sleep(10)
         message.delete
         
@@ -152,7 +152,7 @@ async def Flag(X,Y,message,client):
         userGrid[Y][X] = -2
     
         await editSentGrid()
-        await message.reply("You have flagged this spot", delete_after=4)
+        await message.reply("You flagged this spot", delete_after=4)
         sleep(10)
         message.delete
         
