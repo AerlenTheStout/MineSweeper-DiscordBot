@@ -8,6 +8,8 @@ import copy
 from time import sleep
 import re
 
+from discord import Emoji
+
 
 DIFFICULTIES = {
     #[rows length, number of rows, number of mines]
@@ -37,7 +39,8 @@ COMMANDS = {
     "flag" : -2
 }
                   #beginner
-def initalization(requestedDifficulty,client,message):
+#def initalization(requestedDifficulty,client,message):
+def initalization(requestedDifficulty):
 #This makes and sets the grid variables acording to the difficulty
     global rowlength
     global rowquantity
@@ -50,8 +53,8 @@ def initalization(requestedDifficulty,client,message):
             rowquantity = DIFFICULTIES[difficulty][1]
             minequantity = DIFFICULTIES[difficulty][2]
 
-        else :
-            client.loop.create_task(message.channel.send("You have dug this X"))
+#        else :
+#            client.loop.create_task(message.channel.send("You have dug this X"))
     CreateGrid()
 
 def CreateGrid():
@@ -185,9 +188,20 @@ def startingSpot():
         if originGrid[randomrow][randomspot] == 0:
             userGrid[randomrow][randomspot] = originGrid[randomrow][randomspot]
             zeropicked = True
-    finalPrints()
+    userToEmojiGrid()
 
 #this takes the grid and swaps out each number for its corresponding string from discordspoilers            
+
+#TODO: improve this function
+def userToEmojiGrid():
+    global emojiGrid
+    emojiGrid = copy.deepcopy(userGrid)
+    for i in EMOJIS:
+        for y in emojiGrid:
+            for z in y:
+                if z == i:
+                    y[y.index(z)] = EMOJIS[i]
+    finalPrints()
 
 
 def finalPrints():
@@ -205,10 +219,13 @@ def finalPrints():
 #prints the user grid
     for i in userGrid:
         print(i)
+#prints emji grid
+    for i in emojiGrid:
+        
+        print(i)
 
 
-
-#initalization("beginner")
+initalization("beginner")
 
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
