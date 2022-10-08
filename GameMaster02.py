@@ -99,7 +99,6 @@ def placeMines():
 #This is the function that generates the numbers around the mines
 
 differences = [[0,-1],[0,1],[-1,0],[-1,-1],[-1,1],[1,0],[1,-1],[1,1]]
-#TODO: remover the spoilers after generation testing is done
 
 def addNumbersAroundBombs():
     for i in originGrid:
@@ -134,8 +133,6 @@ async def editSentGrid():
     #edit with corosponding rows from userGrid[i]
 
     return
-
-#TODO: change to dig and flag
 
 async def Dig(X,Y,message,client):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
@@ -172,11 +169,7 @@ async def Flag(X,Y,message,client):
 
 def aroundZero(X,Y):
     for z in differences:
-        if (Y+z[0]) >= 0:
-            if (Y+z[0]) <= len(originGrid)-1:
-                if (X+z[1]) >= 0:
-                    if (X+z[1]) <= rowlength-1:
-                                userGrid[Y+z[0]][X+z[1]] = originGrid[Y][X]
+        userGrid[Y+z[1]][X+z[0]] = originGrid[Y+z[1]][X+z[0]]
 
 #next
 #TODO: make it so that if you dig a zero it digs all the zeros around it
