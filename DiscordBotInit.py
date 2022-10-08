@@ -68,6 +68,8 @@ async def on_message(message):
     async def editPrintedGrid(Y):
         wantedMSGID = msgIDs[Y]
         wantedMSG = await message.channel.fetch_message(wantedMSGID)
+        GameMaster02.userToEmojiGrid()
+        GameMaster02.finalPrints()
         await wantedMSG.edit(content=(str(GameMaster02.emojiGrid[Y]).translate(GameMaster02.target)))
 
         
@@ -111,6 +113,14 @@ async def on_message(message):
 
         if GameMaster02.badDifficulty == False:
             if re.match('\\$play', message.content):
+                await printGrid()
+            elif re.match('\\$lose', message.content):
+                await printGrid()
+            elif re.match('\\$win', message.content):
+                await printGrid()
+            elif re.match('\\$dig', message.content):
+                await printGrid()
+            elif re.match('\\$flag', message.content):
                 await printGrid()
             else:
                 await message.channel.send('Send a working command please', delete_after=5)
