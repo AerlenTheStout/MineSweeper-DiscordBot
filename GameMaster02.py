@@ -1,8 +1,4 @@
 
-#TODO: allows fuctionaly to either dig or flag a square
-#TODO: at the start everything show us as a :blue_box: 
-#TODO: make diffuculties use regex
-
 from random import choice
 import copy
 from time import sleep
@@ -92,7 +88,7 @@ def placeMines():
 
 #This is the function that generates the numbers around the mines
 
-differences = [[0,-1],[0,1],[-1,0],[-1,-1],[-1,1],[1,0],[1,-1],[1,1]]
+differences = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]
 
 def addNumbersAroundBombs():
     for i in originGrid:
@@ -177,8 +173,6 @@ def aroundZero(X,Y):
                             if userGrid[Y+z[0]][X+z[1]] == 0:
                                 aroundZero(X+z[1],Y+z[0])
 
-#next
-#TODO: make it so that if you dig a zero it digs all the zeros around it
 # make it so when givem a cordiante it reveal() the number
 # print the grid with emojis
 
@@ -216,8 +210,6 @@ def startingSpot():
     userToEmojiGrid()
 
 #this takes the grid and swaps out each number for its corresponding string from discordspoilers            
-
-#TODO: improve this function
 
 def userToEmojiGrid():
     global emojiGrid
@@ -258,7 +250,6 @@ def finalPrints():
         finalEmojiGrid = (str(emojiGrid[i]).translate(target))
         print(finalEmojiGrid)
     print(coordTable)
-#initalization("beginner")
 
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
