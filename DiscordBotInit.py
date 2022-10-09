@@ -122,7 +122,8 @@ async def on_message(message):
             if re.match('\\$play', message.content):
                 await printGrid(message)
             elif re.match('\\$lose', message.content):
-                await GameMaster02.lose(message)
+                GameMaster02.Lost = True
+                GameMaster02.originToEmojiGrid()
             #elif re.match('\\$win', message.content):
                 #await GameMaster02.win(message)
             elif re.match('(\\$dig|\\$flag)\\s*([a-zA-Z]),([1-9]?[0-9])', message.content):
