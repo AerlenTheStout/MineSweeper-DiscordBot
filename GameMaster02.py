@@ -118,16 +118,17 @@ def createUserGrid():
             userGrid[i][y] = -1
     startingSpot()
 
-
-
+global Lost
+Lost = False
 async def Dig(X,Y,message,client):
     #this is a function that takes in a x,y cordiate and returns the correct emoji
+    if originGrid[Y][X] == 9:
+        Lost = True
+        originToEmojiGrid()
     if userGrid[Y][X] == -1:
         userGrid[Y][X] = originGrid[Y][X]
         if originGrid[Y][X] == 0:
             aroundZero(X,Y)
-        if originGrid[Y][X] == 9:
-            await lose(message)
         finalPrints()
         await message.reply("You dug this spot", delete_after=4)
         
@@ -243,8 +244,8 @@ def finalPrints():
 
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
-async def lose(message):
-    global emojiGrid
+
+def originToEmojiGrid():
     emojiGrid = copy.deepcopy(originGrid)
     for i in EMOJIS:
         for y in emojiGrid:
@@ -257,33 +258,17 @@ async def lose(message):
     for i in range (rowlength):
         tempAlphabet.append(ALPHABETEMOJI[i])
     tempAlphabet.append("0")
-    emojiGrid.append(tempAlphabet)
-    await message.channel.send("GAME OVER")
-    originGrid.clear()
 
-async def win(message):
+async def win():
     for i in userGrid:
         for n in i:
             if n == -1:
                 return
             else:        
-                global emojiGrid
                 for i in originGrid:
                     for n in i:
                         if n == 9:
                             n = 10
-                emojiGrid = copy.deepcopy(originGrid)
-                for i in EMOJIS:
-                    for y in emojiGrid:
-                        for z in y:
-                            if z == i:
-                                y[y.index(z)] = EMOJIS[i]
-                for i in emojiGrid:
-                    emojiGrid[emojiGrid.index(i)].append(coordTable[emojiGrid.index(i)])
-                tempAlphabet = []
-                for i in range (rowlength):
-                    tempAlphabet.append(ALPHABETEMOJI[i])
-                tempAlphabet.append("0")
-                emojiGrid.append(tempAlphabet)
-                await message.channel.send("YOU WIN!")
-                originGrid.clear()
+                originToEmojiGrid()
+                global Win
+                Win = True

@@ -91,7 +91,15 @@ async def digOrFlag(message):
             sleep(10)
             message.delete()
         #await GameMaster02.win(message)
-
+        GameMaster02.win()
+        if GameMaster02.Win == True:
+            for i in range(GameMaster02.rowquantity):
+                await editPrintedGrid(i)
+            await message.channel.send("YOU WIN!")
+        if GameMaster02.Lost == True:
+            for i in range(GameMaster02.rowquantity):
+                await editPrintedGrid(i)
+            await message.channel.send("YOU LOSE!")
 
 
 #@profile(immediate=True)
