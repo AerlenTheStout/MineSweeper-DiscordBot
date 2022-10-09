@@ -118,13 +118,12 @@ def createUserGrid():
             userGrid[i][y] = -1
     startingSpot()
 
-global Lost
-Lost = False
 async def Dig(X,Y,message,client):
+    global Lost
+    Lost = False
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if originGrid[Y][X] == 9:
         Lost = True
-        originToEmojiGrid()
     if userGrid[Y][X] == -1:
         userGrid[Y][X] = originGrid[Y][X]
         if originGrid[Y][X] == 0:
@@ -258,17 +257,16 @@ def originToEmojiGrid():
     for i in range (rowlength):
         tempAlphabet.append(ALPHABETEMOJI[i])
     tempAlphabet.append("0")
-
-async def win():
+global Winned
+Winned = False
+def win():
     for i in userGrid:
         for n in i:
             if n == -1:
                 return
-            else:        
-                for i in originGrid:
-                    for n in i:
-                        if n == 9:
-                            n = 10
-                originToEmojiGrid()
-                global Win
-                Win = True
+        for i in originGrid:
+            for n in i:
+                if n == 9:
+                    n = 10
+            Winned = True
+            return (Winned)

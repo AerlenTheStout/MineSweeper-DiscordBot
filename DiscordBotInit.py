@@ -81,24 +81,26 @@ async def digOrFlag(message):
             await GameMaster02.Dig(X,Y,message,client)
             print('digged')
             await editPrintedGrid(Y,message)
-            sleep(10)
-            message.delete()
+            sleep(5)
+            await message.delete()
         if action.lower() == '$flag':
             print('flagging')
             await GameMaster02.Flag(X,Y,message,client)
             print('flagged')
             await editPrintedGrid(Y,message)
-            sleep(10)
-            message.delete()
+            sleep(5)
+            await message.delete()
         #await GameMaster02.win(message)
         GameMaster02.win()
-        if GameMaster02.Win == True:
+        if GameMaster02.Winned == True:
             for i in range(GameMaster02.rowquantity):
-                await editPrintedGrid(i)
+                GameMaster02.userGrid = GameMaster02.originGrid
+                await editPrintedGrid(i,message)
             await message.channel.send("YOU WIN!")
         if GameMaster02.Lost == True:
             for i in range(GameMaster02.rowquantity):
-                await editPrintedGrid(i)
+                GameMaster02.userGrid = GameMaster02.originGrid
+                await editPrintedGrid(i,message)
             await message.channel.send("YOU LOSE!")
 
 
