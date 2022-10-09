@@ -1,6 +1,5 @@
 
 #basic imports
-import asyncio
 from time import sleep
 import discord
 import os
@@ -91,7 +90,7 @@ async def digOrFlag(message):
             sleep(5)
             await message.delete()
         #await GameMaster02.win(message)
-        GameMaster02.win()
+        await GameMaster02.win()
         if GameMaster02.Winned == True:
             for i in range(GameMaster02.rowquantity):
                 GameMaster02.userGrid = GameMaster02.originGrid
