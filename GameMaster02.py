@@ -12,7 +12,8 @@ DIFFICULTIES = {
     "intermediate" : [16,16,40],
     "expert" : [16,30,99],
     "mobile" : [11,20,34],
-    "ez" : [3,3,1]
+    "ez" : [3,3,1],
+    "wtf" : [26,64,346]
 }
 
 EMOJIS = {
@@ -267,9 +268,11 @@ def win():
         for n in i:
             if n == -1:
                 return
-        for i in originGrid:
-            for n in i:
-                if n == 9:
-                    originGrid[originGrid.index(i)][i.index(n)] = 10
+            if n == 9:
+                return
+    for i in originGrid:
+        for n in i:
+            if n == 9:
+                originGrid[originGrid.index(i)][i.index(n)] = 10
         Winned = True
         return (Winned)
