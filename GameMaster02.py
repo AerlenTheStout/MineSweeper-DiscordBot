@@ -5,7 +5,7 @@ import re
 
 
 target = {91:None,93:None,39:None,44:None}
-
+#TODO: custom difficulty
 DIFFICULTIES = {
     #[rows length, number of rows, number of mines]
     "beginner" : [9,9,10],
