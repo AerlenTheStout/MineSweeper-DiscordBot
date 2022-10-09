@@ -11,8 +11,8 @@ DIFFICULTIES = {
     "beginner" : [9,9,10],
     "intermediate" : [16,16,40],
     "expert" : [16,30,99],
-    "mintermediate" : [11,20,34],
-    "mexpert" : [11,50,115],
+    "mintermediate" : [11,23,40],
+    "mexpert" : [11,44,99],
     "ez" : [3,3,1],
     "wtf" : [26,50,270]
 }
