@@ -3,6 +3,9 @@ from random import choice
 import copy
 import re
 
+
+target = {91:None,93:None,39:None,44:None}
+
 DIFFICULTIES = {
     #[rows length, number of rows, number of mines]
     "beginner" : [9,9,10],
@@ -124,7 +127,7 @@ async def Dig(X,Y,message,client):
         if originGrid[Y][X] == 0:
             aroundZero(X,Y)
         if originGrid[Y][X] == 9:
-            lose()
+            await lose(message)
         finalPrints()
         await message.reply("You dug this spot", delete_after=4)
         
@@ -234,15 +237,13 @@ def finalPrints():
         print(i)
 #prints emoji grid
     for i in range(len(emojiGrid)):
-        global target
-        target = {91:None,93:None,39:None,44:None}
         finalEmojiGrid = (str(emojiGrid[i]).translate(target))
         print(finalEmojiGrid)
     print(coordTable)
 
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
-def lose():
+async def lose(message):
     global emojiGrid
     emojiGrid = copy.deepcopy(originGrid)
     for i in EMOJIS:
@@ -257,32 +258,32 @@ def lose():
         tempAlphabet.append(ALPHABETEMOJI[i])
     tempAlphabet.append("0")
     emojiGrid.append(tempAlphabet)
-    print("GAME OVER")
+    await message.channel.send("GAME OVER")
     originGrid.clear()
 
-def win():
+async def win(message):
     for i in userGrid:
         for n in i:
             if n == -1:
                 return
-        else:        
-            global emojiGrid
-            for i in originGrid:
-                for n in i:
-                    if n == 9:
-                        n = 10
-            emojiGrid = copy.deepcopy(originGrid)
-            for i in EMOJIS:
-                for y in emojiGrid:
-                    for z in y:
-                        if z == i:
-                            y[y.index(z)] = EMOJIS[i]
-            for i in emojiGrid:
-                emojiGrid[emojiGrid.index(i)].append(coordTable[emojiGrid.index(i)])
-            tempAlphabet = []
-            for i in range (rowlength):
-                tempAlphabet.append(ALPHABETEMOJI[i])
-            tempAlphabet.append("0")
-            emojiGrid.append(tempAlphabet)
-            print("YOU WIN!")
-            originGrid.clear()
+            else:        
+                global emojiGrid
+                for i in originGrid:
+                    for n in i:
+                        if n == 9:
+                            n = 10
+                emojiGrid = copy.deepcopy(originGrid)
+                for i in EMOJIS:
+                    for y in emojiGrid:
+                        for z in y:
+                            if z == i:
+                                y[y.index(z)] = EMOJIS[i]
+                for i in emojiGrid:
+                    emojiGrid[emojiGrid.index(i)].append(coordTable[emojiGrid.index(i)])
+                tempAlphabet = []
+                for i in range (rowlength):
+                    tempAlphabet.append(ALPHABETEMOJI[i])
+                tempAlphabet.append("0")
+                emojiGrid.append(tempAlphabet)
+                await message.channel.send("YOU WIN!")
+                originGrid.clear()
