@@ -52,8 +52,8 @@ async def printGrid(message):
         print("Is printing grid: " + str(is_printing_grid))
         is_printing_grid = False
         #gridID = message.id
-    if is_printing_grid and message.content != ('') :
-            await message.delete()
+
+
 
 
 async def editPrintedGrid(Y,message):
@@ -102,6 +102,7 @@ async def on_message(message):
     global is_printing_grid
     is_printing_grid = False
 
+    
 # \$dig\s*([1-3]?[0-9]),([1-3]?[0-9])   
     if message.content.startswith('$'):
 
@@ -122,4 +123,6 @@ async def on_message(message):
             else:
                 await message.channel.send('Send a working command please', delete_after=5)
         
+    if is_printing_grid == True and message.content != ('') :
+            await message.delete()
 client.run(TOKEN) # type: ignore
