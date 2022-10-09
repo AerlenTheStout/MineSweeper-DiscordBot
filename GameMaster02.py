@@ -125,7 +125,7 @@ async def Dig(X,Y,message,client):
     if originGrid[Y][X] == 9:
         Lost = True
         originToEmojiGrid()
-    if userGrid[Y][X] == -1:
+    elif userGrid[Y][X] == -1:
         userGrid[Y][X] = originGrid[Y][X]
         if originGrid[Y][X] == 0:
             aroundZero(X,Y)
