@@ -80,13 +80,13 @@ async def digOrFlag(message):
         GameMaster02.finalPrints()
         GameMaster02.win()
         if GameMaster02.Winned == True:
+            GameMaster02.userGrid = GameMaster02.originGrid
             for i in range(GameMaster02.rowquantity):
-                GameMaster02.userGrid = GameMaster02.originGrid
                 await editPrintedGrid(i,message)
             await message.channel.send("YOU WIN!")
         if GameMaster02.Lost == True:
+            GameMaster02.userGrid = GameMaster02.originGrid
             for i in range(GameMaster02.rowquantity):
-                GameMaster02.userGrid = GameMaster02.originGrid
                 await editPrintedGrid(i,message)
             await message.channel.send("YOU LOSE!")
         if GameMaster02.aroundZeroTriggered == True:
@@ -119,10 +119,19 @@ async def on_message(message):
             if re.match('\\$play', message.content):
                 await printGrid(message)
             elif re.match('\\$lose', message.content):
-                GameMaster02.Lost = True
-                GameMaster02.originToEmojiGrid()
-            #elif re.match('\\$win', message.content):
-                #await GameMaster02.win(message)
+                GameMaster02.userGrid = GameMaster02.originGrid
+                for i in range(GameMaster02.rowquantity):
+                    await editPrintedGrid(i,message)
+                await message.channel.send("YOU LOSE!")
+            elif re.match('\\$win', message.content):
+                for i in GameMaster02.originGrid:
+                    for n in i:
+                        if n == 9:
+                            GameMaster02.originGrid[GameMaster02.originGrid.index(i)][i.index(n)] = 10
+                GameMaster02.userGrid = GameMaster02.originGrid 
+                for i in range(GameMaster02.rowquantity):
+                    await editPrintedGrid(i,message)
+                await message.channel.send("YOU WIN!")
             elif re.match('(\\$dig|\\$flag)\\s*([a-zA-Z]),([1-9]?[0-9])', message.content):
                 await digOrFlag(message)
             else:
