@@ -55,6 +55,7 @@ async def initalization(requestedDifficulty,client,message):
     global indexIgnore
     indexIgnore = []
     global aroundZeroTriggered
+    aroundZeroTriggered = False
 #ugly but it works so shut the fuck up
     global badDifficulty
     badDifficulty = False
@@ -176,6 +177,7 @@ def aroundZero(X,Y):
                         if (X+z[1]) <= rowlength-1:
                             userGrid[Y+z[0]][X+z[1]] = originGrid[Y+z[0]][X+z[1]]
                             indexIgnore.append([Y,X])
+                            global revealList
                             revealList.append([Y,X])
                             revealList.append([Y+z[0],X+z[1]])
                             if userGrid[Y+z[0]][X+z[1]] == 0:
@@ -292,6 +294,7 @@ def win():
 
 def aroundZeroUpdateList():
     global updateList
+    global revealList
     updateList = list()
     for i in revealList:
         updateList.append(i[0])
