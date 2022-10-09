@@ -13,7 +13,8 @@ DIFFICULTIES = {
     "expert" : [16,30,99],
     "mobile" : [11,20,34],
     "ez" : [3,3,1],
-    "wtf" : [26,64,346]
+    "wtf" : [26,64,346],
+    "mobilewtf" : [11,50,115]
 }
 
 EMOJIS = {
