@@ -11,10 +11,10 @@ DIFFICULTIES = {
     "beginner" : [9,9,10],
     "intermediate" : [16,16,40],
     "expert" : [16,30,99],
-    "mobile" : [11,20,34],
+    "mintermediate" : [11,20,34],
+    "mexpert" : [11,50,115],
     "ez" : [3,3,1],
-    "wtf" : [26,64,346],
-    "mobileexpert" : [11,50,115]
+    "wtf" : [26,50,270]
 }
 
 EMOJIS = {
@@ -221,7 +221,7 @@ def userToEmojiGrid():
     tempAlphabet = []
     for i in range (rowlength):
         tempAlphabet.append(ALPHABETEMOJI[i])
-    tempAlphabet.append("0")
+    tempAlphabet.append("|")
     emojiGrid.append(tempAlphabet)
     
 
