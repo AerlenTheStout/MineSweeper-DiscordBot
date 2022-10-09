@@ -11,7 +11,8 @@ DIFFICULTIES = {
     "beginner" : [9,9,10],
     "intermediate" : [16,16,40],
     "expert" : [16,30,99],
-    "mobile" : [11,20,34]
+    "mobile" : [11,20,34],
+    "ez" : [3,3,1]
 }
 
 EMOJIS = {
@@ -42,6 +43,12 @@ async def initalization(requestedDifficulty,client,message):
     global rowlength
     global rowquantity
     global minequantity
+    global Winned
+    Winned = False
+    global Lost
+    Lost = False
+    global indexIgnore
+    indexIgnore = []
 #ugly but it works so shut the fuck up
     global badDifficulty
     badDifficulty = False
@@ -120,7 +127,6 @@ def createUserGrid():
 
 async def Dig(X,Y,message,client):
     global Lost
-    Lost = False
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if originGrid[Y][X] == 9:
         Lost = True
@@ -149,8 +155,7 @@ async def Flag(X,Y,message,client):
         await message.reply("You have already flagged this spot", delete_after=4)
         
 
-global indexIgnore
-indexIgnore = []
+
 
 def aroundZero(X,Y):
     
@@ -165,8 +170,6 @@ def aroundZero(X,Y):
                             if userGrid[Y+z[0]][X+z[1]] == 0:
                                 aroundZero(X+z[1],Y+z[0])
 
-# make it so when givem a cordiante it reveal() the number
-# print the grid with emojis
 
 def coordTabler():  
     global coordTable
@@ -257,9 +260,9 @@ def originToEmojiGrid():
     for i in range (rowlength):
         tempAlphabet.append(ALPHABETEMOJI[i])
     tempAlphabet.append("0")
-global Winned
-Winned = False
+
 def win():
+    global Winned
     for i in userGrid:
         for n in i:
             if n == -1:
@@ -267,6 +270,6 @@ def win():
         for i in originGrid:
             for n in i:
                 if n == 9:
-                    n = 10
-            Winned = True
-            return (Winned)
+                    originGrid[originGrid.index(i)][i.index(n)] = 10
+        Winned = True
+        return (Winned)

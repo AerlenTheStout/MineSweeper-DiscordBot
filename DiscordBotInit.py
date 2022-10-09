@@ -9,15 +9,9 @@ import GameMaster02
 #speedtesting
 #from profilehooks import profile
 
-#TODO: edit the message https://javascript.tutorialink.com/how-to-make-a-bot-edit-its-own-message-on-discord/
 #TODO: add help command with info on how to 
-#TODO: make end condition either win or loss
+
 #TODO: block startying new game untill other one is over
-
-
-#XXX: OKAY FOR THIS PAGE TOMMOROOW
-#when i dig with a capital letter at the start it take an incredibly long time to respond
-#when i dig withOUT a capital letter at the start it responds almsot instantly
 
 #dotenv to store discord token securly
 from dotenv import load_dotenv
@@ -79,18 +73,14 @@ async def digOrFlag(message):
             print('digging')
             await GameMaster02.Dig(X,Y,message,client)
             print('digged')
-            await editPrintedGrid(Y,message)
-            sleep(5)
-            await message.delete()
+            
         if action.lower() == '$flag':
             print('flagging')
             await GameMaster02.Flag(X,Y,message,client)
             print('flagged')
-            await editPrintedGrid(Y,message)
-            sleep(5)
-            await message.delete()
+            
         #await GameMaster02.win(message)
-        await GameMaster02.win()
+        GameMaster02.win()
         if GameMaster02.Winned == True:
             for i in range(GameMaster02.rowquantity):
                 GameMaster02.userGrid = GameMaster02.originGrid
@@ -101,6 +91,9 @@ async def digOrFlag(message):
                 GameMaster02.userGrid = GameMaster02.originGrid
                 await editPrintedGrid(i,message)
             await message.channel.send("YOU LOSE!")
+        await editPrintedGrid(Y,message)
+        sleep(5)
+        await message.delete()
 
 
 #@profile(immediate=True)
