@@ -53,7 +53,6 @@ async def editPrintedGrid(Y,message):
     wantedMSGID = msgIDs[Y]
     wantedMSG = await message.channel.fetch_message(wantedMSGID)
     GameMaster02.userToEmojiGrid()
-    GameMaster02.finalPrints()
     await wantedMSG.edit(content=(str(GameMaster02.emojiGrid[Y]).translate(GameMaster02.target)))
 
 
@@ -78,8 +77,7 @@ async def digOrFlag(message):
             print('flagging')
             await GameMaster02.Flag(X,Y,message,client)
             print('flagged')
-            
-        #await GameMaster02.win(message)
+        GameMaster02.finalPrints()
         GameMaster02.win()
         if GameMaster02.Winned == True:
             for i in range(GameMaster02.rowquantity):
@@ -91,6 +89,9 @@ async def digOrFlag(message):
                 GameMaster02.userGrid = GameMaster02.originGrid
                 await editPrintedGrid(i,message)
             await message.channel.send("YOU LOSE!")
+        if GameMaster02.aroundZeroTriggered == True:
+            for i in GameMaster02.updateList:
+                await editPrintedGrid(i,message)
         await editPrintedGrid(Y,message)
         sleep(5)
         await message.delete()

@@ -1,4 +1,5 @@
 
+from operator import index
 from random import choice
 import copy
 import re
@@ -53,6 +54,7 @@ async def initalization(requestedDifficulty,client,message):
     Lost = False
     global indexIgnore
     indexIgnore = []
+    global aroundZeroTriggered
 #ugly but it works so shut the fuck up
     global badDifficulty
     badDifficulty = False
@@ -136,6 +138,11 @@ async def Dig(X,Y,message,client):
         userGrid[Y][X] = originGrid[Y][X]
         if originGrid[Y][X] == 0:
             aroundZero(X,Y)
+            aroundZeroUpdateList()
+            global indexIgnore
+            indexIgnore = list()
+            global aroundZeroTriggered
+            aroundZeroTriggered = True
         finalPrints()
         await message.reply("You dug this spot", delete_after=4)
         
@@ -157,10 +164,10 @@ async def Flag(X,Y,message,client):
         await message.reply("You have already flagged this spot", delete_after=4)
         
 
-
+global revealList
+revealList = list()
 
 def aroundZero(X,Y):
-    
     if [Y,X] not in indexIgnore:
         for z in differences:
             if (Y+z[0]) >= 0:
@@ -169,6 +176,8 @@ def aroundZero(X,Y):
                         if (X+z[1]) <= rowlength-1:
                             userGrid[Y+z[0]][X+z[1]] = originGrid[Y+z[0]][X+z[1]]
                             indexIgnore.append([Y,X])
+                            revealList.append([Y,X])
+                            revealList.append([Y+z[0],X+z[1]])
                             if userGrid[Y+z[0]][X+z[1]] == 0:
                                 aroundZero(X+z[1],Y+z[0])
 
@@ -204,6 +213,10 @@ def startingSpot():
             userGrid[randomrow][randomspot] = originGrid[randomrow][randomspot]
             zeropicked = True
             aroundZero(randomspot,randomrow)
+            global indexIgnore
+            global revealList
+            indexIgnore = list()
+            revealList = list()
     userToEmojiGrid()
 
 #this takes the grid and swaps out each number for its corresponding string from discordspoilers            
@@ -244,7 +257,6 @@ def finalPrints():
     for i in range(len(emojiGrid)):
         finalEmojiGrid = (str(emojiGrid[i]).translate(target))
         print(finalEmojiGrid)
-    print(coordTable)
 
 #plase hepl ~ BbrDbr
 #save my soul ~ Aerlen
@@ -277,3 +289,10 @@ def win():
                 originGrid[originGrid.index(i)][i.index(n)] = 10
         Winned = True
         return (Winned)
+
+def aroundZeroUpdateList():
+    global updateList
+    updateList = list()
+    for i in revealList:
+        updateList.append(i[0])
+    updateList = [*set(updateList)]
