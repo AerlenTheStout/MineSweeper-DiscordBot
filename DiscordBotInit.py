@@ -92,6 +92,7 @@ async def digOrFlag(message):
         if GameMaster02.aroundZeroTriggered == True:
             for i in GameMaster02.updateList:
                 await editPrintedGrid(i,message)
+            GameMaster02.aroundZeroTriggered = False
         await editPrintedGrid(Y,message)
         sleep(5)
         await message.delete()

@@ -296,3 +296,4 @@ def aroundZeroUpdateList():
     for i in revealList:
         updateList.append(i[0])
     updateList = [*set(updateList)]
+    revealList = list()
