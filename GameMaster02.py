@@ -134,7 +134,8 @@ async def Dig(X,Y,message,client):
     global Lost
     #this is a function that takes in a x,y cordiate and returns the correct emoji
     if originGrid[Y][X] == 9:
-        Lost = True
+        if userGrid[Y][X] != -2:
+            Lost = True
     if userGrid[Y][X] == -1:
         userGrid[Y][X] = originGrid[Y][X]
         if originGrid[Y][X] == 0:
@@ -144,9 +145,10 @@ async def Dig(X,Y,message,client):
             indexIgnore = list()
             global aroundZeroTriggered
             aroundZeroTriggered = True
-        finalPrints()
+        #finalPrints()
         await message.reply("You dug this spot", delete_after=4)
-        
+    elif userGrid[Y][X] == -2:
+        await message.reply("You have already flagged this spot", delete_after=4)
     else :
         await message.reply("You have already dug this spot", delete_after=4)
         
@@ -160,9 +162,13 @@ async def Flag(X,Y,message,client):
     
         #await editSentGrid()
         await message.reply("You flagged this spot", delete_after=4)
-        
+    elif userGrid[Y][X] == -2:
+        userGrid[Y][X] = -1
+    
+        #await editSentGrid()
+        await message.reply("You unflagged this spot", delete_after=4)
     else :
-        await message.reply("You have already flagged this spot", delete_after=4)
+        await message.reply("You have already dug this spot", delete_after=4)
         
 
 global revealList
