@@ -15,7 +15,7 @@ DIFFICULTIES = {
     "mintermediate" : [11,23,40],
     "mexpert" : [11,44,99],
     "ez" : [3,3,1],
-    "wtf" : [26,50,270]
+    "wtf" : [26,50,900]
 }
 
 EMOJIS = {
@@ -221,10 +221,11 @@ def startingSpot():
         randomrow = choice(range(len(originGrid)))
         randomspot = choice(range(len(originGrid[0])))
         #i stole this from stackoverflow ^, it's so beautiful
-        if originGrid[randomrow][randomspot] == 0:
+        if originGrid[randomrow][randomspot] != 9:
             userGrid[randomrow][randomspot] = originGrid[randomrow][randomspot]
             zeropicked = True
-            aroundZero(randomspot,randomrow)
+            if originGrid[randomrow][randomspot] == 0:
+                aroundZero(randomspot,randomrow)
             global indexIgnore
             global revealList
             indexIgnore = list()
