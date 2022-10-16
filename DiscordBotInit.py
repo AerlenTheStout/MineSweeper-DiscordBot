@@ -132,7 +132,7 @@ async def on_message(message):
                 for i in range(GameMaster02.rowquantity):
                     await editPrintedGrid(i,message)
                 await message.channel.send("YOU WIN!")
-            if digOrFlagMatchResults:
+            elif digOrFlagMatchResults:
                 await digOrFlag(message,digOrFlagMatchResults)
             else:
                 await message.channel.send('Send a working command please', delete_after=5)
