@@ -55,8 +55,7 @@ async def editPrintedGrid(Y,message):
     await wantedMSG.edit(content=(str(GameMaster02.emojiGrid[Y]).translate(GameMaster02.target)))
 
 
-async def digOrFlag(message):
-    digOrFlagMatchResults = re.match('(\\$dig|\\$flag)\\s*([a-zA-Z]),([1-9]?[0-9])', message.content)
+async def digOrFlag(message, digOrFlagMatchResults):
     if digOrFlagMatchResults is not None:
         action = digOrFlagMatchResults.group(1)
         X = digOrFlagMatchResults.group(2)
@@ -115,6 +114,7 @@ async def on_message(message):
     if message.content.startswith('$'):
 
         #$play msg with diffuculty
+        digOrFlagMatchResults = re.match('(\\$dig|\\$flag)\\s*([a-zA-Z]),([1-9]?[0-9])', message.content)
         playAndDiffcultyMatchResults = re.match('(\\S{5})\\s*(\\S+)', message.content)
         if playAndDiffcultyMatchResults is not None:
             await GameMaster02.initalization(playAndDiffcultyMatchResults.group(2),client,message)
@@ -135,8 +135,8 @@ async def on_message(message):
                 for i in range(GameMaster02.rowquantity):
                     await editPrintedGrid(i,message)
                 await message.channel.send("YOU WIN!")
-            elif re.match('(\\$dig|\\$flag)\\s*([a-zA-Z]),([1-9]?[0-9])', message.content):
-                await digOrFlag(message)
+            if digOrFlagMatchResults:
+                await digOrFlag(message,digOrFlagMatchResults)
             else:
                 await message.channel.send('Send a working command please', delete_after=5)
         
