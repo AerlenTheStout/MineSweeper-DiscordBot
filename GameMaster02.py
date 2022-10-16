@@ -56,6 +56,8 @@ async def initalization(requestedDifficulty,client,message):
     indexIgnore = []
     global aroundZeroTriggered
     aroundZeroTriggered = False
+    global tempAlphabetDone
+    tempAlphabetDone = False
 #ugly but it works so shut the fuck up
     global badDifficulty
     badDifficulty = False
@@ -120,6 +122,8 @@ def addNumbersAroundBombs():
     #this creats a copy grid with the numbers around the mines
     global userGrid
     userGrid = copy.deepcopy(originGrid)
+    for i in originGrid:
+        print(i)
     createUserGrid()
     
 #create new grid to store the discord spoilers
@@ -239,10 +243,10 @@ def userToEmojiGrid():
                     y[y.index(z)] = EMOJIS[i]
     for i in emojiGrid:
         emojiGrid[emojiGrid.index(i)].append(coordTable[emojiGrid.index(i)])
-    tempAlphabet = []
-    for i in range (rowlength):
-        tempAlphabet.append(ALPHABETEMOJI[i])
-    tempAlphabet.append("|")
+    global tempAlphabetDone
+    if tempAlphabetDone == False:
+        tempAlphabetter()
+        tempAlphabetDone = True
     emojiGrid.append(tempAlphabet)
     
 
@@ -278,12 +282,8 @@ def originToEmojiGrid():
                     y[y.index(z)] = EMOJIS[i]
     for i in emojiGrid:
         emojiGrid[emojiGrid.index(i)].append(coordTable[emojiGrid.index(i)])
-    tempAlphabet = []
-    for i in range (rowlength):
-        tempAlphabet.append(ALPHABETEMOJI[i])
-    tempAlphabet.append("0")
 
-def win():
+def winCheck():
     global Winned
     for i in userGrid:
         for n in i:
@@ -291,12 +291,14 @@ def win():
                 return
             if n == 9:
                 return
+    Winned = True
+    return(Winned)
+
+def win():
     for i in originGrid:
         for n in i:
             if n == 9:
                 originGrid[originGrid.index(i)][i.index(n)] = 10
-        Winned = True
-        return (Winned)
 
 def aroundZeroUpdateList():
     global updateList
@@ -306,3 +308,10 @@ def aroundZeroUpdateList():
         updateList.append(i[0])
     updateList = [*set(updateList)]
     revealList = list()
+
+def tempAlphabetter():
+    global tempAlphabet
+    tempAlphabet = []
+    for i in range (rowlength):
+        tempAlphabet.append(ALPHABETEMOJI[i])
+    tempAlphabet.append("|")

@@ -52,7 +52,6 @@ async def printGrid(message):
 async def editPrintedGrid(Y,message):
     wantedMSGID = msgIDs[Y]
     wantedMSG = await message.channel.fetch_message(wantedMSGID)
-    GameMaster02.userToEmojiGrid()
     await wantedMSG.edit(content=(str(GameMaster02.emojiGrid[Y]).translate(GameMaster02.target)))
 
 
@@ -78,21 +77,26 @@ async def digOrFlag(message):
             await GameMaster02.Flag(X,Y,message,client)
             print('flagged')
         #GameMaster02.finalPrints()
-        GameMaster02.win()
+        GameMaster02.winCheck()
         if GameMaster02.aroundZeroTriggered == True:
+            GameMaster02.userToEmojiGrid()
             for i in GameMaster02.updateList:
                 await editPrintedGrid(i,message)
             GameMaster02.aroundZeroTriggered = False
         if GameMaster02.Winned == True:
+            GameMaster02.win()
             GameMaster02.userGrid = GameMaster02.originGrid
+            GameMaster02.userToEmojiGrid()
             for i in range(GameMaster02.rowquantity):
                 await editPrintedGrid(i,message)
             await message.channel.send("YOU WIN!")
         if GameMaster02.Lost == True:
             GameMaster02.userGrid = GameMaster02.originGrid
+            GameMaster02.userToEmojiGrid()
             for i in range(GameMaster02.rowquantity):
                 await editPrintedGrid(i,message)
             await message.channel.send("YOU LOSE!")
+        GameMaster02.userToEmojiGrid()
         await editPrintedGrid(Y,message)
         sleep(5)
         await message.delete()
@@ -120,15 +124,14 @@ async def on_message(message):
                 await printGrid(message)
             elif re.match('\\$lose', message.content):
                 GameMaster02.userGrid = GameMaster02.originGrid
+                GameMaster02.userToEmojiGrid()
                 for i in range(GameMaster02.rowquantity):
                     await editPrintedGrid(i,message)
                 await message.channel.send("YOU LOSE!")
             elif re.match('\\$win', message.content):
-                for i in GameMaster02.originGrid:
-                    for n in i:
-                        if n == 9:
-                            GameMaster02.originGrid[GameMaster02.originGrid.index(i)][i.index(n)] = 10
-                GameMaster02.userGrid = GameMaster02.originGrid 
+                GameMaster02.win()
+                GameMaster02.userGrid = GameMaster02.originGrid
+                GameMaster02.userToEmojiGrid()
                 for i in range(GameMaster02.rowquantity):
                     await editPrintedGrid(i,message)
                 await message.channel.send("YOU WIN!")
