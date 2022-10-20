@@ -15,7 +15,7 @@ DIFFICULTIES = {
     "mintermediate" : [11,23,40],
     "mexpert" : [11,44,99],
     "ez" : [3,3,1],
-    "wtf" : [26,50,900]
+    "wtf" : [26,50,250]
 }
 
 EMOJIS = {
@@ -221,15 +221,18 @@ def startingSpot():
         randomrow = choice(range(len(originGrid)))
         randomspot = choice(range(len(originGrid[0])))
         #i stole this from stackoverflow ^, it's so beautiful
-        if originGrid[randomrow][randomspot] != 9:
-            userGrid[randomrow][randomspot] = originGrid[randomrow][randomspot]
-            zeropicked = True
-            if originGrid[randomrow][randomspot] == 0:
-                aroundZero(randomspot,randomrow)
-            global indexIgnore
-            global revealList
-            indexIgnore = list()
-            revealList = list()
+        for i in originGrid:
+            if i == 0 :
+                if originGrid[randomrow][randomspot] != 9:
+                    userGrid[randomrow][randomspot] = originGrid[randomrow][randomspot]
+                    zeropicked = True
+                    if originGrid[randomrow][randomspot] == 0:
+                        aroundZero(randomspot,randomrow)
+                    global indexIgnore
+                    global revealList
+                    indexIgnore = list()
+                    revealList = list()
+                    break
     userToEmojiGrid()
 
 #this takes the grid and swaps out each number for its corresponding string from discordspoilers            
