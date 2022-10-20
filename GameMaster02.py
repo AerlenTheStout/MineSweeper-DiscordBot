@@ -289,11 +289,12 @@ def originToEmojiGrid():
 
 def winCheck():
     global Winned
-    for i in userGrid:
-        for n in i:
-            if n == -1:
-                return
-            if n == 9:
+    for i in range(rowquantity):
+        for n in range(rowlength):
+            if userGrid[i][n] == -1:
+                if originGrid[i][n] != 9:
+                    return
+            if userGrid[i][n] == 9:
                 return
     Winned = True
     return(Winned)
