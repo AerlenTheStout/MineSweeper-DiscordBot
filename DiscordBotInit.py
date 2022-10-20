@@ -46,14 +46,10 @@ async def printGrid(message):
         is_printing_grid = False
         #gridID = message.id
 
-
-
-
 async def editPrintedGrid(Y,message):
     wantedMSGID = msgIDs[Y]
     wantedMSG = await message.channel.fetch_message(wantedMSGID)
     await wantedMSG.edit(content=(str(GameMaster02.emojiGrid[Y]).translate(GameMaster02.target)))
-
 
 async def digOrFlag(message, digOrFlagMatchResults):
     if digOrFlagMatchResults is not None:
@@ -99,7 +95,6 @@ async def digOrFlag(message, digOrFlagMatchResults):
         await editPrintedGrid(Y,message)
         sleep(5)
         await message.delete()
-
 
 #@profile(immediate=True)
 @client.event

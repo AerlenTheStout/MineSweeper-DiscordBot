@@ -15,7 +15,8 @@ DIFFICULTIES = {
     "mintermediate" : [11,23,40],
     "mexpert" : [11,44,99],
     "ez" : [3,3,1],
-    "wtf" : [26,50,250]
+    "wtf" : [26,50,250],
+    "test" : [3,3,4]
 }
 
 EMOJIS = {
@@ -48,16 +49,24 @@ async def initalization(requestedDifficulty,client,message):
     global rowlength
     global rowquantity
     global minequantity
+
     global Winned
     Winned = False
+
     global Lost
     Lost = False
+    
     global indexIgnore
     indexIgnore = []
+
     global aroundZeroTriggered
     aroundZeroTriggered = False
+
     global tempAlphabetDone
     tempAlphabetDone = False
+
+    global revealList     
+    revealList = list()
 #ugly but it works so shut the fuck up
     global badDifficulty
     badDifficulty = False
@@ -69,14 +78,14 @@ async def initalization(requestedDifficulty,client,message):
             rowquantity = DIFFICULTIES[difficulty][1]
             minequantity = DIFFICULTIES[difficulty][2]
             badDifficulty = False
-            CreateGrid()
+            CreateGrid(message)
 
         if re.match(requestedDifficulty,difficulty)== False:
             await message.channel.send("Please chose a valid difficulty")
             badDifficulty = True
             break
 
-def CreateGrid():
+def CreateGrid(message):
 #create the grid by putting a new list in the gird for each rows and then apeending to each rows to make collumns
     global originGrid
     originGrid = list()
@@ -85,9 +94,9 @@ def CreateGrid():
         for y in range(rowlength):
             originGrid[i].append(0)
     coordTabler()
-    placeMines()
+    placeMines(message)
 
-def placeMines():
+def placeMines(message):
 #This is the function that generates the mines
     minesplaced = 0
     while minesplaced < minequantity:
@@ -100,11 +109,11 @@ def placeMines():
     global plotGrid
     for i in originGrid:
         plotGrid = copy.deepcopy(originGrid)
-    addNumbersAroundBombs()
+    addNumbersAroundBombs(message)
 
 #This is the function that generates the numbers around the mines
 
-def addNumbersAroundBombs():
+def addNumbersAroundBombs(message):
     for i in originGrid:
         for y in i:
             if y == -1:
@@ -124,15 +133,15 @@ def addNumbersAroundBombs():
     userGrid = copy.deepcopy(originGrid)
     for i in originGrid:
         print(i)
-    createUserGrid()
+    createUserGrid(message)
     
 #create new grid to store the discord spoilers
 
-def createUserGrid():
+def createUserGrid(message):
     for i in range(rowquantity):
         for y in range(rowlength):
             userGrid[i][y] = -1
-    startingSpot()
+    startingSpot(message)
 
 async def Dig(X,Y,message,client):
     global Lost
@@ -207,32 +216,39 @@ def rowCoordinates(Y):
             Y = i
             return Y
     
-    
 def XLetters(X):
     for i in ALPHABET:
         if X == i:
             X = ALPHABET[i]
             return X
     
-def startingSpot():
+def startingSpot(message):
 #chose a random X to be the first X to be revealed
     zeropicked = False
+    zeroExists = False
+    for i in originGrid:
+        for y in i:
+            if y == 0:
+                zeroExists = True
+                break
+        if zeroExists == True:
+            break
+
     while zeropicked == False:
         randomrow = choice(range(len(originGrid)))
         randomspot = choice(range(len(originGrid[0])))
         #i stole this from stackoverflow ^, it's so beautiful
-        for i in originGrid:
-            if i == 0 :
-                if originGrid[randomrow][randomspot] != 9:
-                    userGrid[randomrow][randomspot] = originGrid[randomrow][randomspot]
-                    zeropicked = True
-                    if originGrid[randomrow][randomspot] == 0:
-                        aroundZero(randomspot,randomrow)
-                    global indexIgnore
-                    global revealList
-                    indexIgnore = list()
-                    revealList = list()
-                    break
+        if zeroExists == True:
+            if originGrid[randomrow][randomspot] == 0:
+                aroundZero(randomspot,randomrow)
+                zeropicked = True
+    
+        elif zeropicked == False and originGrid[randomrow][randomspot] != 9:
+            userGrid[randomrow][randomspot] = originGrid[randomrow][randomspot]
+            zeropicked = True
+
+        else:
+            message.channel.send("There are no zeros in this grid, please try again")
     userToEmojiGrid()
 
 #this takes the grid and swaps out each number for its corresponding string from discordspoilers            
@@ -273,9 +289,6 @@ def finalPrints():
     for i in range(len(emojiGrid)):
         finalEmojiGrid = (str(emojiGrid[i]).translate(target))
         print(finalEmojiGrid)
-
-#plase hepl ~ BbrDbr
-#save my soul ~ Aerlen
 
 def originToEmojiGrid():
     emojiGrid = copy.deepcopy(originGrid)
@@ -320,3 +333,6 @@ def tempAlphabetter():
     for i in range (rowlength):
         tempAlphabet.append(ALPHABETEMOJI[i])
     tempAlphabet.append("|")
+
+#plase hepl ~ BbrDbr
+#save my soul ~ Aerlen
