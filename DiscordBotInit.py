@@ -1,4 +1,3 @@
-
 #basic imports
 from time import sleep
 import discord
@@ -19,7 +18,7 @@ load_dotenv()
 TOKEN = os.getenv('TOKEN')
 is_printing_grid = False
 
-#
+
 intents = discord.Intents.default()
 intents.message_content = True
 
